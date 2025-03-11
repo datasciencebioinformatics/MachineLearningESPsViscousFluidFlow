@@ -121,12 +121,11 @@ water_samples$fluid<-"water"
 
 # Add table name to water samples
 water_samples$table<-1
-
-
 #########################################################################################################
+# Specify sheet by its name
+p100_fluid_1800_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "1800 rpm",skip = 8))
+p100_fluid_2400_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "2400 rpm",skip = 8))
+p100_water_3000_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "3000 rpm",skip = 8))
+p100_water_3500_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "3500 rpm",skip = 8))
 
-
-# Add a collumn to each table with the name of the sample
-p100_water_1800_data$sample<-"p100_water"
-p100_water_1800_data$sample<-"p100_water"
 #########################################################################################################
