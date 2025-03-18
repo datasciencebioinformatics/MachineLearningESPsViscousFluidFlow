@@ -42,3 +42,41 @@ P47_viscous <-cbind(rbind(P47_viscous_2400_data[-1,],P47_viscous_3000_data[-1,],
 P37_viscous <-cbind(rbind(P37_viscous_2400_data[-1,],P37_viscous_3000_data[-1,],P37_viscous_3500_data[-1,]),equip="P37")
 HC10000_viscous <-cbind(rbind(HC10000_viscous_1800_data[-1,],HC10000_viscous_2400_data[-1,],HC10000_viscous_3000_data[-1,]),equip="HC10000")
 HC12500_viscous <-cbind(rbind(HC12500_viscous_1800_data[-1,],HC12500_viscous_2400_data[-1,],HC12500_viscous_3000_data[-1,]),equip="HC12500")
+#########################################################################################################
+# First, the P100 in water samples
+#P100_water_1200_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "1200 rpm",skip = 9))
+P100_water_1800_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "1800 rpm",skip = 9))
+P100_water_2400_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "2400 rpm",skip = 9))
+P100_water_3000_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "3000 rpm",skip = 9))
+P100_water_3500_data <- data.frame(read_excel(paste(project_folder,"P100_water.xlsx",sep=""), sheet = "3500 rpm",skip = 9))
+
+#P62_water_1200_data <- data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "1200 rpm",skip = 9))
+P62_water_1800_data <- data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "1800 rpm",skip = 9))
+P62_water_2400_data <- data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "2400 rpm",skip = 9))
+P62_water_3000_data <- data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "3000 rpm",skip = 9))
+P62_water_3500_data <- data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "3500 rpm",skip = 9))
+
+#P47_water_1200_data <- data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "1200 rpm",skip = 9))
+P47_water_1800_data <- data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "1800 rpm",skip = 9))
+P47_water_2400_data <- data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "2400 rpm",skip = 9))
+P47_water_3000_data <- data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "3000 rpm",skip = 9))
+P47_water_3500_data <- data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "3500 rpm",skip = 9))
+
+#P37_water_1200_data <- data.frame(read_excel(paste(project_folder,"P37_water.xlsx",sep=""), sheet = "1200 rpm",skip = 9))
+P37_water_1800_data <- data.frame(read_excel(paste(project_folder,"P37_water.xlsx",sep=""), sheet = "1800 rpm",skip = 9))
+P37_water_2400_data <- data.frame(read_excel(paste(project_folder,"P37_water.xlsx",sep=""), sheet = "2400 rpm",skip = 9))
+P37_water_3000_data <- data.frame(read_excel(paste(project_folder,"P37_water.xlsx",sep=""), sheet = "3000 rpm",skip = 9))
+P37_water_3500_data <- data.frame(read_excel(paste(project_folder,"P37_water.xlsx",sep=""), sheet = "3500 rpm",skip = 9))
+
+#HC10000_water_1200_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "1200 rpm",skip = 9))
+HC10000_water_1800_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "1800 rpm",skip = 9))
+HC10000_water_2400_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "2400 rpm",skip = 9))
+HC10000_water_3000_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "3000 rpm",skip = 9))
+HC10000_water_3500_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "3500 rpm",skip = 9))
+
+#HC12500_water_1200_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "1200 rpm",skip = 9))
+HC12500_water_1800_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "1800 rpm",skip = 9))
+HC12500_water_2400_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "2400 rpm",skip = 9))
+HC12500_water_3000_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "3000 rpm",skip = 9))
+HC12500_water_3500_data <- data.frame(read_excel(paste(project_folder,"HC10000_water.xlsx",sep=""), sheet = "3500 rpm",skip = 9))
+
