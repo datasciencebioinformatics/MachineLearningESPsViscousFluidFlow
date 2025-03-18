@@ -57,7 +57,7 @@ P100_water_3500_data <- cbind(data.frame(read_excel(paste(project_folder,"P100_w
 P62_water_1800_data <- cbind(data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "1800 rpm",skip = 7)),RPM="1800")
 P62_water_2400_data <- cbind(data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "2400 rpm",skip = 7)),RPM="2400")
 P62_water_3000_data <- cbind(data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "3000 rpm",skip = 7)),RPM="3000")
-P62_water_3500_data <- cbind(data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "3500 rpm",skip = 7)),RPM="1300")
+P62_water_3500_data <- cbind(data.frame(read_excel(paste(project_folder,"P62_water.xlsx",sep=""), sheet = "3500 rpm",skip = 7)),RPM="3500")
 
 #P47_water_1200_data <- cbind(data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "1200 rpm",skip = 7)),RPM="1200")
 P47_water_1800_data <- cbind(data.frame(read_excel(paste(project_folder,"P47_water.xlsx",sep=""), sheet = "1800 rpm",skip = 7)),RPM="1800")
@@ -100,6 +100,3 @@ common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames
 
 # Merge tables
 merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
-
-
-All_viscous
