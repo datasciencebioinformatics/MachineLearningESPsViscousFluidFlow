@@ -112,18 +112,17 @@ melt_water_viscous<-melt(merge_water_viscous,id.vars=c("id","fluid","RPM","repli
 melt_water_viscous<-na.omit(melt_water_viscous)
 ##################################################################################################
 # Basic density
-p <- ggplot(melt_water_viscous, aes(x=as.numeric(value),fill=fluid)) + geom_density(alpha=0.4) + facet_grid(rows =vars(variable), cols=vars(RPM), scales="free") 
-
+p <- ggplot(melt_water_viscous, aes(x=as.numeric(value),fill=fluid)) + geom_density(alpha=0.4) + facet_wrap(vars(variable,RPM), nrow = 7, scales="free") + theme_bw()
 # Plot_raw_vibration_data.png                                                                                                            
-png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_rpm.png",sep=""), width = 20, height = 25, res=600, units = "cm")  
+png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_rpm.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
   p
 dev.off()
 
 
 # Basic density
-p <- ggplot(melt_water_viscous, aes(x=as.numeric(value),fill=fluid)) + geom_density(alpha=0.4) + facet_grid(rows =vars(variable), cols=vars(equip), scales="free")
+p <- ggplot(melt_water_viscous, aes(x=as.numeric(value),fill=equip)) + geom_density(alpha=0.4) + facet_wrap(vars(variable,fluid), nrow = 7, scales="free") + theme_bw()
 
 # Plot_raw_vibration_data.png                                                                                                            
-png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_equip.png",sep=""), width = 20, height = 25, res=600, units = "cm")  
+png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_equip.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
   p
 dev.off()
