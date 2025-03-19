@@ -110,28 +110,9 @@ melt_water_viscous<-melt(merge_water_viscous,id.vars=c("id","fluid","RPM","repli
 # plot each equipment at once
 # remove na
 melt_water_viscous<-na.omit(melt_water_viscous)
-##################################################################################################3
-P100
-P62
-P47
-P37
-P100
-HC10000
-HC12500
-
-##################################################################################################3
-
-
+##################################################################################################
 # Basic density
 p <- ggplot(melt_water_viscous, aes(x=value,fill=fluid)) + geom_density(alpha=0.4) + facet_grid(rows =vars(variable), cols=vars(RPM), scales="free") 
-
-# Plot_raw_vibration_data.png                                                                                                            
-png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_rpm.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
-  p
-dev.off()
-
-# Basic density
-p <- ggplot(melt_water_viscous, aes(x=value,fill=fluid)) + geom_density(alpha=0.4) + facet_grid(rows =vars(variable), cols=vars(equip), scales="free") 
 
 # Plot_raw_vibration_data.png                                                                                                            
 png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_rpm.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
