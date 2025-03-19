@@ -105,8 +105,9 @@ merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varib
 melt_water_viscous<-melt(merge_water_viscous,id.vars=c("id","fluid","RPM","replicate"))
 
 # Basic density
-p <- ggplot(melt_water_viscous, aes(x=value,fill=fluid)) + geom_density(alpha=0.4) + facet_grid(vars(variable, RPM), scales="free") 
+p <- ggplot(melt_water_viscous, aes(x=value,fill=fluid)) + geom_density(alpha=0.4) + facet_grid(rows =vars(variable), cols=vars(RPM), scales="free") 
 
-
-Rchrgit
-
+# Plot_raw_vibration_data.png                                                                                                            
+png(filename=paste(project_folder,"Plot_melt_water_viscous.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
+  p
+dev.off()
