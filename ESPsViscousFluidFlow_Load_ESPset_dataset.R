@@ -100,3 +100,11 @@ common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames
 
 # Merge tables
 merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
+
+# Melt water_viscous
+melt_water_viscous<-melt(merge_water_viscous,id.vars=c("id","fluid","RPM","replicate"))
+
+# Basic density
+p <- ggplot(melt_water_viscous, aes(x=value,fill=fluid)) + geom_density(alpha=0.4) + facet_grid(vars(variable), scales="free")  +  ylim(0, 0.1)
+
+
