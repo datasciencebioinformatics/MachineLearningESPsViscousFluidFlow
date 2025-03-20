@@ -126,3 +126,24 @@ p <- ggplot(melt_water_viscous, aes(x=as.numeric(value),fill=equip)) + geom_dens
 png(filename=paste(project_folder,"Plot_melt_water_viscous_variable_equip.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
   p
 dev.off()
+#########################################################################################################
+# Performance assessment
+melt_water_viscous_sub_P1<-melt_water_viscous[which( melt_water_viscous$variable=="Inlet.Pressure.P1" & melt_water_viscous$RPM == 1800),]
+melt_water_viscous_sub_T1<-melt_water_viscous[which( melt_water_viscous$variable=="Inlet.Temperature.T1" & melt_water_viscous$RPM == 1800),]
+melt_water_viscous_sub<-rbind(melt_water_viscous_sub_P1,melt_water_viscous_sub_T1)
+
+# Plot_raw_vibration_data.png                                                                                                            
+png(filename=paste(project_folder,"melt_water_viscous_sub_P1.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
+  ggplot(melt_water_viscous_sub_P1, aes(x=fluid, y=as.numeric(value)))+theme_classic()+ facet_wrap(vars(variable,equip), nrow = 3, scales="free") + theme_bw() +geom_boxplot() + geom_jitter() + ggtitle("1800 RPM")
+dev.off()
+
+# Plot_raw_vibration_data.png                                                                                                            
+png(filename=paste(project_folder,"melt_water_viscous_sub_T1.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
+  ggplot(melt_water_viscous_sub_T1, aes(x=fluid, y=as.numeric(value)))+theme_classic()+ facet_wrap(vars(variable,equip), nrow = 3, scales="free") + theme_bw() +geom_boxplot() + geom_jitter()  + ggtitle("1800 RPM")
+dev.off()
+
+
+
+
+
+#########################################################################################################
