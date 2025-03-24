@@ -55,3 +55,17 @@ water_variables<-c("Flow.rate", "Inlet.Temperature.T1", "Inlet.Temperature.T2", 
 # Convert the variables to numeric
 selected_viscous_variables <- data.frame(apply(All_viscous[,fluid_variables], 2, function(x) as.numeric(as.character(x))))
 selected_water_variables  <- data.frame(apply(All_water[,water_variables], 2, function(x) as.numeric(as.character(x))))
+
+# selected_water_variables                                                                                                            
+png(filename=paste(project_folder,"selected_water_variables.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
+        selected_water_variables
+dev.off()
+
+# selected_viscous_variables                                                                                                            
+png(filename=paste(project_folder,"selected_viscous_variables.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
+        selected_viscous_variables
+dev.off()
+
+chart.Correlation(my_data, histogram=TRUE, pch=19)
+chart.Correlation(my_data, histogram=TRUE, pch=19)
+
