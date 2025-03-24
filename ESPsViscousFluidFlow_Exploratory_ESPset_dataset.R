@@ -47,7 +47,11 @@ png(filename=paste(project_folder,"melt_water_viscous_sub_T1.png",sep=""), width
 dev.off()
 #########################################################################################################
 # Common variables water and fluid
-common_variables<-c("Flow.rate","Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM")
+fluid_variables<-c("Flow.rate","Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4", "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Net.Shaft.Torque", "Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o", "Inlet.Density.ρi", "Inlet.Viscosity.mi",  "Outlet.Viscosity.mo", "RPM")
 
 # Only variables of fluids 
-fluid_variables<-c("Flow.rate","Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4","Inlet.Pressure.P1","Outlet.Pressure.P2","Net.Shaft.Torque", "Average.Inlet.Temp.Tm.i","Average.Outlet.Temp.Tm.o", "Inlet.Density.ρi","Inlet.Viscosity.mi","Outlet.Viscosity.mo","RPM")
+water_variables<-c("Flow.rate", "Inlet.Temperature.T1", "Inlet.Temperature.T2", "Outlet.Temperature.T3", "Outlet.Temperature.T4", "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")
+
+# Convert the variables to numeric
+selected_viscous_variables <- data.frame(apply(All_viscous[,fluid_variables], 2, function(x) as.numeric(as.character(x))))
+selected_water_variables  <- data.frame(apply(All_water[,water_variables], 2, function(x) as.numeric(as.character(x))))
