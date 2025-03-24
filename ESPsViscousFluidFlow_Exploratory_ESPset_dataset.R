@@ -50,22 +50,19 @@ dev.off()
 fluid_variables<-c("Flow.rate","Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4", "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Net.Shaft.Torque", "Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o", "Inlet.Density.ρi", "Inlet.Viscosity.mi",  "Outlet.Viscosity.mo", "RPM")
 
 # Only variables of fluids 
-water_variables<-c("Flow.rate", "Inlet.Temperature.T1", "Inlet.Temperature.T2", "Outlet.Temperature.T3", "Outlet.Temperature.T4", "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")
+water_variables<-c("Flow.rate", "Inlet.Temperature.T1", "Inlet.Temperature.T2",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")
 
 # Convert the variables to numeric
 selected_viscous_variables <- data.frame(apply(All_viscous[,fluid_variables], 2, function(x) as.numeric(as.character(x))))
 selected_water_variables  <- data.frame(apply(All_water[,water_variables], 2, function(x) as.numeric(as.character(x))))
 
 # selected_water_variables                                                                                                            
-png(filename=paste(project_folder,"selected_water_variables.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
-        selected_water_variables
+png(filename=paste(project_folder,"chart.Correlation.water.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
+        chart.Correlation(selected_water_variables, histogram=TRUE, pch=19)
 dev.off()
 
 # selected_viscous_variables                                                                                                            
-png(filename=paste(project_folder,"selected_viscous_variables.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
-        selected_viscous_variables
+png(filename=paste(project_folder,"chart.Correlation.viscous.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
+        chart.Correlation(selected_viscous_variables, histogram=TRUE, pch=19)
 dev.off()
-
-chart.Correlation(my_data, histogram=TRUE, pch=19)
-chart.Correlation(my_data, histogram=TRUE, pch=19)
 
