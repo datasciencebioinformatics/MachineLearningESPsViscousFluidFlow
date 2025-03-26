@@ -52,3 +52,7 @@ cor(as.vector(Inlet.Density_predicted),na.omit(testing_ddensity)$Inlet.Density.œ
 cor(as.vector(Inlet.Viscosity_predicted),na.omit(testing_viscosity_inlet)$Inlet.Viscosity.mi)
 cor(as.vector(Outlet.Viscosity_predicted),na.omit(testing_outlet_model_variables)$Outlet.Viscosity.mo)
 
+# Overall accuracy assessment
+postResample(Inlet.Density_predicted    ,na.omit(testing_ddensity)$Inlet.Density.œÅi)
+postResample(Inlet.Viscosity_predicted  ,na.omit(testing_viscosity_inlet)$Inlet.Viscosity.mi)
+postResample(Outlet.Viscosity_predicted ,na.omit(testing_outlet_model_variables)$Outlet.Viscosity.mo)
