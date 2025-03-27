@@ -16,29 +16,16 @@ colnames(metada_data_rads)<-c("model","Impeller.diameter","1800","2400","3000","
 # Compile metada data
 metada_data<-rbind(metada_data_rpm,metada_data_rads)
 #########################################################################################################
-# Calculation of Reynolds number
-All_viscous$Re_a<-0 # Coeficiente de Reynolds (Reynolds number)
-All_viscous$Re_b<-0 # https://www.sciencedirect.com/science/article/abs/pii/S2949891024002410
-
-# Re	=	número de Reynolds
-# Ρ	=	densidade do fluido
-# Μ	=	velocidade do fluxo
-# L	=	dimensão linear característica
-# υ	=	viscosidade dinâmica do fluido
-
-# P=Inlet.Density.ρi
-# M=Flow.rate
-# L=Impeller.diameter
-# υ=Outlet.Viscosity.mo
-
 # Mass flow rate can be used to calculate velocity through the volumetric flow rate equation. The equation is ṁ = (v * A) * ρ, where: 
+All_viscous$Velocity<-0
+
 # v = m/(A*d)
 # m: Mass flow rate               [kg/h]
 # v: Velocity                     [m/h]
 # A: Cross-sectional area of flow [m2] 
 # d: Density                      [kg/m³]
 
-# Calculate the velocity
+# First, Calculate the velocity
 for (measure in rownames(All_viscous))
 {
   # The Flow Rate, Q 
@@ -63,8 +50,26 @@ for (measure in rownames(All_viscous))
 
   # [m/s]
   v = v*0.0002777778
+
+  # Store velocity
+  All_viscous[measure,"Velocity"]<-v
   
 }
+#####################################################################################
+# Calculation of Reynolds number
+All_viscous$Re_a<-0 # Coeficiente de Reynolds (Reynolds number)
+All_viscous$Re_b<-0 # https://www.sciencedirect.com/science/article/abs/pii/S2949891024002410
+
+# Re	=	número de Reynolds
+# Ρ	=	densidade do fluido
+# Μ	=	velocidade do fluxo
+# L	=	dimensão linear característica
+# υ	=	viscosidade dinâmica do fluido
+
+# P=Inlet.Density.ρi
+# M=Flow.rate
+# L=Impeller.diameter
+# υ=Outlet.Viscosity.mo
 
 # To calculate the velocity of a fluid from its flow rate, you can use the formula \(v=Q/A\). In this formula, \(v\) is the velocity, \(Q\) is the flow rate, and \(A\) is the cross-sectional area. 
 # cross-sectional area -> A = pi*(L/2)^2
