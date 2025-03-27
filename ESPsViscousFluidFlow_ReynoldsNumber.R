@@ -40,8 +40,21 @@ for (measure in rownames(All_viscous))
   # Density (kg/m³) in (kg/l)
   Inlet.Density.ρi=as.numeric(All_viscous[measure,"Inlet.Density.ρi"])/1000 
 
-  # The Flow Rate, Q (kg/h) in k/min 
-  Q = (Q/60)*Inlet.Density.ρi
+  # The Flow Rate, Q (kg/h) in l/s 
+  Q_l_min = (Q/60)*Inlet.Density.ρi
+  Q = (Q/3600)*Inlet.Density.ρi
+
+  # Inner diameter of pipe, di in mm
+  di  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"])*1000 
+
+  # Area from pipe
+  # Originally the diameter was to m,
+  # it was multiplied to 1000 to convert to mm
+  # the aread was the calculated with mm
+  A   <- pi*((di/2)^2)*1000
+
+  # Velocity m/s
+  v = Q/A
 }
 
 # To calculate the velocity of a fluid from its flow rate, you can use the formula \(v=Q/A\). In this formula, \(v\) is the velocity, \(Q\) is the flow rate, and \(A\) is the cross-sectional area. 
