@@ -66,14 +66,13 @@ for (measure in rownames(All_viscous))
 # kv viscosity (m2/s)                  dv/d
 
 # Calculation of Reynolds number
-All_viscous$Re_A<-0 # https://www.google.com/search?q=Coeficiente+de+Reynolds+(Reynolds+number)&oq=Coeficiente+de+Reynolds+(Reynolds+number)&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgoIARAAGIAEGKIEMgoIAhAAGIAEGKIEMgoIAxAAGIAEGKIEMgcIBBAAGO8FMgoIBRAAGIAEGKIE0gEIMTAwMmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
+All_viscous$Re_A<-0 # https://en.wikipedia.org/wiki/Reynolds_number
 All_viscous$Re_B<-0 # https://en.wikipedia.org/wiki/Reynolds_number
-All_viscous$Re_C<-0 # https://en.wikipedia.org/wiki/Reynolds_number
 
 # Second, calculate the Reynolds number
 for (measure in rownames(All_viscous))
 {
- # Take the equipment
+  # Take the equipment
   equip<-All_viscous[measure,"equip"]
                      
   # The Flow Rate, Q 
@@ -94,27 +93,39 @@ for (measure in rownames(All_viscous))
   # Store viscosity
   # [cP]
   vicosity<-as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
-                      
-  # The Reynolds number is calculated with this equation: R e = ρ v d μ , where is the Reynolds number, is the density of the fluid, is the velocity of the fluid flow, is the diameter of the pipe, and is the viscosity of the fluid.
-  # kg/m³ * m/s * m * cP  
-  Re_A = d * velocity * id * vicosity
-
-  # Store the Reynolds number
-  # (Kg * cP)/s 
-  All_viscous[measure,"Re_A"]<-Re_A
-
-
+                  
   # https://en.wikipedia.org/wiki/Reynolds_number
-  dv=d                 # d density    (kg/m3)
+  d=d                  # d density    (kg/m3)
   v=velocity           # v flow speed (m/s)
   L=id                 # L length     (m)
-  d=vicosity           # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
-  kv=dv/d               #  kv viscosity (m2/s))           
+  dv=vicosity          # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
+  kv=dv/d              #  kv viscosity (m2/s))           
   
   Re_B_1 = (dv*L)/kv
   Re_B_2 = (d*v*L)/v
 
   # Reynolds number
-  All_viscous[measure,"Re_B"]<-Re_B_1  
-  All_viscous[measure,"Re_C"]<-Re_B_2  
+  All_viscous[measure,"Re_A"]<-Re_B_1  
+  All_viscous[measure,"Re_B"]<-Re_B_2  
 }
+
+#####################################################################################
+# Calculation of Reynolds number with R package "hydraulics"
+All_viscous$Re_C<-0 # https://cran.r-project.org/web/packages/hydraulics/hydraulics.pdf
+
+# Start kv vector
+kv_vector<-c()
+
+# Third, calculate the Reynolds number with R package hydraulics
+for (measure in rownames(All_viscous))
+{
+  # Add collumn kv to data.frame
+  All_viscous$kv<-kv_vector
+  All_viscous$L<-L
+  reynolds_number(V = All_viscous$Velocity, D = L, nu = All_viscous$kv)
+
+
+}
+
+  
+
