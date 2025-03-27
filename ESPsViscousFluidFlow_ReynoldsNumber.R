@@ -31,38 +31,39 @@ All_viscous$Re_b<-0 # https://www.sciencedirect.com/science/article/abs/pii/S294
 # L=Impeller.diameter
 # υ=Outlet.Viscosity.mo
 
-Q: Volume per unit time, such as cubic meters per second (\(m^{3}/s\)) 
-v: Velocity, such as meters per second (\(m/s\)) 
-A: Cross-sectional area, such as square meters (\(m^{2}\)
+# Mass flow rate can be used to calculate velocity through the volumetric flow rate equation. The equation is ṁ = (v * A) * ρ, where: 
+# v = m/(A*d)
+# m: Mass flow rate               [kg/h]
+# v: Velocity                     [m/h]
+# A: Cross-sectional area of flow [m2] 
+# d: Density                      [kg/m³]
 
 # Calculate the velocity
 for (measure in rownames(All_viscous))
 {
-  # The Flow Rate, Q (kg/h)
-  Q=as.numeric(All_viscous[measure,"Flow.rate"])
+  # The Flow Rate, Q 
+  # [kg/h]
+  m=as.numeric(All_viscous[measure,"Flow.rate"])
 
-  # Density (kg/m³) in (kg/l)
-  Inlet.Density.ρi=as.numeric(All_viscous[measure,"Inlet.Density.ρi"])/1000 
-
-  # The Flow Rate, Q (kg/h) in l/s 
-  # Liter per second, check liter per second
-  Q    = (Q/3600)*Inlet.Density.ρi
+  # Density
+  # [kg/m³]
+  d=as.numeric(All_viscous[measure,"Inlet.Density.ρi"])/1000 
 
   # Inner diameter of pipe, di in m
-  di  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
+  # [m]
+  id  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
 
   # Area from pipe
-  # áread in m2
+  # [m2]
   A   <- pi*((di/2)^2)
 
+  # v = m/(A*d) 
+  # [m/h]
+  v = m/(A*d)
+
+  # [m/s]
+  v = v*0.0002777778
   
-  # Q: Is the volumetric flow rate, measured in volume per unit time
-  # v: Is the velocity of the fluid, measured in meters per second (m/s)
-  # A: Is the cross-sectional area of the pipe, measured in meters squared (m2)
-  # Velocity m/s
-  # Q in l/s
-  # A in m2
-  v = Q/A
 }
 
 # To calculate the velocity of a fluid from its flow rate, you can use the formula \(v=Q/A\). In this formula, \(v\) is the velocity, \(Q\) is the flow rate, and \(A\) is the cross-sectional area. 
