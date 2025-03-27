@@ -40,11 +40,11 @@ for (measure in rownames(All_viscous))
   #####################################################################################
   # Take the equipment
   equip<-All_viscous[measure,"equip"]
-  F<-as.numeric(All_viscous[measure,"Flow.rate"])
-  L<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
-  υ<-as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
-  P<-as.numeric(All_viscous[measure,"Inlet.Density.ρi"])
-  w<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
+  F  <-as.numeric(All_viscous[measure,"Flow.rate"])
+  L  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
+  υ  <-as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
+  RPM<-as.numeric(All_viscous[measure,"RPM"])
+  w<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads" & ,RPM]) 
   A       <- pi*(L/2)^2
   velocity<-F/A
   #####################################################################################
@@ -55,9 +55,15 @@ for (measure in rownames(All_viscous))
   # https://www.sciencedirect.com/science/article/abs/pii/S2949891024002410
   # Gülich (2008)
   # valid for viscosities up to 4000 mm2/s and specific speed between 0.132 < 𝜔𝑠 < 0.936
+  Re_w<-(w*(L^2))/velocity
 
-  # w : rotational speed in rad/s
+  # w_s : 𝜔 is the rotational speed in rad/
+  Re_gulich <-Re_w*w
+  
+  # w : is the rotational speed in rad/s
   # where 𝑅𝑒𝜔 is the dimensionless rotational Reynolds number, given as:
+  # 𝑟2 is the impeller outer diameter.
+  # 𝑎 Original=1.5 Optimized=2.06 
   #####################################################################################
   
   # Set the reynolds number
