@@ -17,7 +17,8 @@ colnames(metada_data_rads)<-c("model","Impeller.diameter","1800","2400","3000","
 metada_data<-rbind(metada_data_rpm,metada_data_rads)
 #########################################################################################################
 # Calculation of Reynolds number
-All_viscous$Re<-0
+All_viscous$Re_a<-0 # Coeficiente de Reynolds (Reynolds number)
+All_viscous$Re_b<-0 # https://www.sciencedirect.com/science/article/abs/pii/S2949891024002410
 
 # Re	=	número de Reynolds
 # Ρ	=	densidade do fluido
@@ -36,18 +37,30 @@ All_viscous$Re<-0
 # For each measure
 for (measure in rownames(All_viscous))
 {
+  #####################################################################################
   # Take the equipment
   equip<-All_viscous[measure,"equip"]
   F<-as.numeric(All_viscous[measure,"Flow.rate"])
   L<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
   υ<-as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
   P<-as.numeric(All_viscous[measure,"Inlet.Density.ρi"])
+  w<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
   A       <- pi*(L/2)^2
   velocity<-F/A
+  #####################################################################################
+  # https://www.google.com/search?q=Coeficiente+de+Reynolds+%28Reynolds+number%29%0D%0A&sca_esv=f731f35a248a5872&sxsrf=AHTn8zqkqYIW--AtUKUwp9RomTfTwkr7Cg%3A1743079038717&ei=fkblZ4_CK-2H4dUPjPHh4Qk&ved=0ahUKEwiP-au3o6qMAxXtQ7gEHYx4OJwQ4dUDCBA&uact=5&oq=Coeficiente+de+Reynolds+%28Reynolds+number%29%0D%0A&gs_lp=Egxnd3Mtd2l6LXNlcnAiKkNvZWZpY2llbnRlIGRlIFJleW5vbGRzIChSZXlub2xkcyBudW1iZXIpCkgAUABYAHAAeAGQAQCYAQCgAQCqAQC4AQPIAQD4AQL4AQGYAgCgAgCYAwCSBwCgBwCyBwC4BwA&sclient=gws-wiz-serp
+  # Reynolds number formula a :  # Coeficiente de Reynolds (Reynolds number)
+  Re_A = (P*velocity*L)/υ
+  #####################################################################################
+  # https://www.sciencedirect.com/science/article/abs/pii/S2949891024002410
+  # Gülich (2008)
+  # valid for viscosities up to 4000 mm2/s and specific speed between 0.132 < 𝜔𝑠 < 0.936
 
-  # Reynolds number
-  Re = (P*velocity*L)/υ
-
+  # w : rotational speed in rad/s
+  # where 𝑅𝑒𝜔 is the dimensionless rotational Reynolds number, given as:
+  #####################################################################################
+  
   # Set the reynolds number
-  All_viscous[measure,"Re"]<-Re
+  All_viscous[measure,"Re_a"]<-Re_A
+  All_viscous[measure,"Re_b"]<-Re_B
 }
