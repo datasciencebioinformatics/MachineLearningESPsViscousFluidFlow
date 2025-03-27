@@ -43,10 +43,17 @@ for (measure in rownames(All_viscous))
   F  <-as.numeric(All_viscous[measure,"Flow.rate"])
   L  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
   υ  <-as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
-  RPM<-as.numeric(All_viscous[measure,"RPM"])
-  w<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads" & ,RPM]) 
+  RPM<-All_viscous[measure,"RPM"]
+  w<-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads" ,RPM]) 
+  
+  # Here I must check how I calculated the aread from the Impeller.diameter.
+  # The formula for the area of an impeller is \(Area=\pi d^{2}\), where \(d\) is the impeller's diameter. 
+  # A (m2)
+  # F (kg/h)
+  # w (rad/s)
+  # velocity (kg/h / m2 )
   A       <- pi*(L/2)^2
-  velocity<-F/A
+  velocity<-F/A 
   #####################################################################################
   # https://www.google.com/search?q=Coeficiente+de+Reynolds+%28Reynolds+number%29%0D%0A&sca_esv=f731f35a248a5872&sxsrf=AHTn8zqkqYIW--AtUKUwp9RomTfTwkr7Cg%3A1743079038717&ei=fkblZ4_CK-2H4dUPjPHh4Qk&ved=0ahUKEwiP-au3o6qMAxXtQ7gEHYx4OJwQ4dUDCBA&uact=5&oq=Coeficiente+de+Reynolds+%28Reynolds+number%29%0D%0A&gs_lp=Egxnd3Mtd2l6LXNlcnAiKkNvZWZpY2llbnRlIGRlIFJleW5vbGRzIChSZXlub2xkcyBudW1iZXIpCkgAUABYAHAAeAGQAQCYAQCgAQCqAQC4AQPIAQD4AQL4AQGYAgCgAgCYAwCSBwCgBwCyBwC4BwA&sclient=gws-wiz-serp
   # Reynolds number formula a :  # Coeficiente de Reynolds (Reynolds number)
