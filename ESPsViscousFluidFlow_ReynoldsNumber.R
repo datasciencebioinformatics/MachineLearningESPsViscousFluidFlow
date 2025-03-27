@@ -68,6 +68,7 @@ for (measure in rownames(All_viscous))
 # Calculation of Reynolds number
 All_viscous$Re_A<-0 # https://www.google.com/search?q=Coeficiente+de+Reynolds+(Reynolds+number)&oq=Coeficiente+de+Reynolds+(Reynolds+number)&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgoIARAAGIAEGKIEMgoIAhAAGIAEGKIEMgoIAxAAGIAEGKIEMgcIBBAAGO8FMgoIBRAAGIAEGKIE0gEIMTAwMmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8
 All_viscous$Re_B<-0 # https://en.wikipedia.org/wiki/Reynolds_number
+All_viscous$Re_C<-0 # https://en.wikipedia.org/wiki/Reynolds_number
 
 # Second, calculate the Reynolds number
 for (measure in rownames(All_viscous))
@@ -98,22 +99,22 @@ for (measure in rownames(All_viscous))
   # kg/m³ * m/s * m * cP  
   Re_A = d * velocity * id * vicosity
 
-  # https://en.wikipedia.org/wiki/Reynolds_number
-  dv=vicosity          # d density    (kg/m3)
-  v=velocity           # v flow speed (m/s)
-  L=id                 # L length     (m)
-  d=d                  # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
-  kv=v/d               #  kv viscosity (m2/s))           
-  
-  Re_B_1 = (v*id)/kv   
-  Re_B_2 = (d*v*id)/dv
-
-  # Reynolds number
-  Re_B_1 == Re_B_2   
-
   # Store the Reynolds number
   # (Kg * cP)/s 
   All_viscous[measure,"Re_A"]<-Re_A
 
+
+  # https://en.wikipedia.org/wiki/Reynolds_number
+  dv=d                 # d density    (kg/m3)
+  v=velocity           # v flow speed (m/s)
+  L=id                 # L length     (m)
+  d=vicosity           # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
+  kv=dv/d               #  kv viscosity (m2/s))           
   
+  Re_B_1 = (dv*L)/kv
+  Re_B_2 = (d*v*L)/v
+
+  # Reynolds number
+  All_viscous[measure,"Re_B"]<-Re_B_1  
+  All_viscous[measure,"Re_C"]<-Re_B_2  
 }
