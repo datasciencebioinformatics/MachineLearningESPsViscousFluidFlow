@@ -41,19 +41,23 @@ for (measure in rownames(All_viscous))
   Inlet.Density.ρi=as.numeric(All_viscous[measure,"Inlet.Density.ρi"])/1000 
 
   # The Flow Rate, Q (kg/h) in l/s 
-  Q_l_min = (Q/60)*Inlet.Density.ρi
-  Q = (Q/3600)*Inlet.Density.ρi
+  # Liter per second, check liter per second
+  Q    = (Q/3600)*Inlet.Density.ρi
 
-  # Inner diameter of pipe, di in mm
-  di  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"])*1000 
+  # Inner diameter of pipe, di in m
+  di  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
 
   # Area from pipe
-  # Originally the diameter was to m,
-  # it was multiplied to 1000 to convert to mm
-  # the aread was the calculated with mm
-  A   <- pi*((di/2)^2)*1000
+  # áread in m2
+  A   <- pi*((di/2)^2)
 
+  
+  # Q: Is the volumetric flow rate, measured in volume per unit time
+  # v: Is the velocity of the fluid, measured in meters per second (m/s)
+  # A: Is the cross-sectional area of the pipe, measured in meters squared (m2)
   # Velocity m/s
+  # Q in l/s
+  # A in m2
   v = Q/A
 }
 
