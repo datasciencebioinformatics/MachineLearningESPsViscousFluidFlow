@@ -31,6 +31,19 @@ All_viscous$Re_b<-0 # https://www.sciencedirect.com/science/article/abs/pii/S294
 # L=Impeller.diameter
 # υ=Outlet.Viscosity.mo
 
+# Calculate the velocity
+for (measure in rownames(All_viscous))
+{
+  # The Flow Rate, Q (kg/h)
+  Q=as.numeric(All_viscous[measure,"Flow.rate"])
+
+  # Density (kg/m³) in (kg/l)
+  Inlet.Density.ρi=as.numeric(All_viscous[measure,"Inlet.Density.ρi"])/1000 
+
+  # The Flow Rate, Q (kg/h) in k/min 
+  Q = (Q/60)*Inlet.Density.ρi
+}
+
 # To calculate the velocity of a fluid from its flow rate, you can use the formula \(v=Q/A\). In this formula, \(v\) is the velocity, \(Q\) is the flow rate, and \(A\) is the cross-sectional area. 
 # cross-sectional area -> A = pi*(L/2)^2
 # velocity=Flow.rate/A
