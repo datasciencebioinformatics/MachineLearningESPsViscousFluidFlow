@@ -31,6 +31,10 @@ All_viscous$Re_b<-0 # https://www.sciencedirect.com/science/article/abs/pii/S294
 # L=Impeller.diameter
 # υ=Outlet.Viscosity.mo
 
+Q: Volume per unit time, such as cubic meters per second (\(m^{3}/s\)) 
+v: Velocity, such as meters per second (\(m/s\)) 
+A: Cross-sectional area, such as square meters (\(m^{2}\)
+
 # Calculate the velocity
 for (measure in rownames(All_viscous))
 {
