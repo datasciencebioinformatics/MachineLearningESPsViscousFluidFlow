@@ -1,21 +1,4 @@
 #########################################################################################################
-# Path to metadata file
-metada_data_file="eps_metada.xlsx"
-
-# Load the metada file
-metada_data<-data.frame(read_excel(paste(project_folder,metada_data_file,sep=""),skip=1))
-
-# Split data.frame into RPM and rads
-metada_data_rpm <-cbind(metada_data[,c(1,2,3,4,5,6)],Metric="RPM")
-metada_data_rads<-cbind(metada_data[,c(1,2,7,8,9,10)],Metric="rads")
-
-# Split data.frame into RPM and rads
-colnames(metada_data_rpm)<-c("model","Impeller.diameter","1800","2400","3000","3500","Metric")
-colnames(metada_data_rads)<-c("model","Impeller.diameter","1800","2400","3000","3500","Metric")
-
-# Compile metada data
-metada_data<-rbind(metada_data_rpm,metada_data_rads)
-#########################################################################################################
 # Mass flow rate can be used to calculate velocity through the volumetric flow rate equation. The equation is ṁ = (v * A) * ρ, where: 
 All_viscous$Velocity<-0
 
@@ -54,7 +37,7 @@ for (measure in rownames(All_viscous))
   # [m/s]
   v = v*0.0002777778
 
-  # Store velocity
+  # Store velocity m/s
   All_viscous[measure,"Velocity"]<-v
   
 }
@@ -99,33 +82,17 @@ for (measure in rownames(All_viscous))
   v=velocity           # v flow speed (m/s)
   L=id                 # L length     (m)
   dv=vicosity          # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
-  kv=dv/d              #  kv viscosity (m2/s))           
-  
-  Re_B_1 = (dv*L)/kv
-  Re_B_2 = (d*v*L)/v
+  kv=dv/d              # kv kinetic viscosity (m2/s))           
+
+  # Reynolds number
+  # Re_1 = [u is the flow speed (m/s) * L is a characteristic length (m)] / ν is the kinematic viscosity of the fluid (m2/s).
+  # Re_2 = [ρ is the density of the fluid (kg/m3) * u is the flow speed (m/s) * L is a characteristic length (m)] / μ is the dynamic viscosity of the fluid (Pa·s)
+
+  # Re_B
+  Re_B_1 = (v * L)/kv
+  Re_B_2 = (d*v*L)/dv
 
   # Reynolds number
   All_viscous[measure,"Re_A"]<-Re_B_1  
   All_viscous[measure,"Re_B"]<-Re_B_2  
 }
-
-#####################################################################################
-# Calculation of Reynolds number with R package "hydraulics"
-All_viscous$Re_C<-0 # https://cran.r-project.org/web/packages/hydraulics/hydraulics.pdf
-
-# Start kv vector
-kv_vector<-c()
-
-# Third, calculate the Reynolds number with R package hydraulics
-for (measure in rownames(All_viscous))
-{
-  # Add collumn kv to data.frame
-  All_viscous$kv<-kv_vector
-  All_viscous$L<-L
-  reynolds_number(V = All_viscous$Velocity, D = L, nu = All_viscous$kv)
-
-
-}
-
-  
-
