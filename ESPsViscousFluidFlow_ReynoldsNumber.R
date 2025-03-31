@@ -1,6 +1,7 @@
 #########################################################################################################
 # Mass flow rate can be used to calculate velocity through the volumetric flow rate equation. The equation is ṁ = (v * A) * ρ, where: 
-All_viscous$Velocity<-0
+All_viscous$Velocity_inlet <-0
+All_viscous$Velocity_outlet<-0
 
 # v = m/(A*d)
 # m: Mass flow rate               [kg/h]
@@ -20,7 +21,8 @@ for (measure in rownames(All_viscous))
   
   # Density
   # [kg/m³]
-  d=as.numeric(All_viscous[measure,"Inlet.Density.ρi"])
+  d_inlet  <-as.numeric(All_viscous[measure,"Inlet.Density.ρi"])
+  d_outlet <-as.numeric(All_viscous[measure,"Outlet.Density.ρi"])
 
   # Inner diameter of pipe, di in m
   # [m]
@@ -32,13 +34,16 @@ for (measure in rownames(All_viscous))
 
   # v = m/(A*d) 
   # [m/h]
-  v = m/(A*d)
+  v_inlet  = m/(A*d_inlet)
+  v_outlet = m/(A*d_outlet)
 
   # [m/s]
-  v = v*0.0002777778
+  v_inlet    = v_inlet*0.0002777778
+  v_outlet   = v_outlet*0.0002777778
 
   # Store velocity m/s
-  All_viscous[measure,"Velocity"]<-v
+  All_viscous[measure,"Velocity_inlet"]<-v_inlet
+  All_viscous[measure,"Velocity_outlet"]<-v_outlet  
   
 }
 #####################################################################################
