@@ -3,6 +3,10 @@
 # set  the gravitational constant
 # 9.81 meters per second squared (m/s2) is the approximate value of the acceleration due to gravity on Earth's surface. This value is represented by the letter g. 
 g=9.81]
+
+# Number of stages (constant equanto to 3)
+N   <-3 
+
 # Store the useful power Ph
 All_viscous$P_h<-0
 
@@ -31,20 +35,19 @@ for (measure in rownames(All_viscous))
   # Store inlet and outlet pressure
   P1  <-as.numeric(All_viscous[measure,"Inlet.Pressure.P1"])
   P2  <-as.numeric(All_viscous[measure,"Outlet.Pressure.P2"])
-
-  # Number of stages = 3
-  N   <-3 
   
   # Density
-  # [kg/m³]
   p  <-as.numeric(All_viscous[measure,"Inlet.Density.ρi"])
 
-  p*g*H*Q
+  # Head pump
+  All_viscous[measure,"H"]<-(P2-P1)/(d*g)*(1/N) 
+
+  # useful power Ph
+  All_viscous[measure,"P_h"]<- p*g*H*Q
 
   # Inner diameter of pipe, di in m
   # [m]
   id  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
-
 
   # [m]
   All_viscous[measure,"D"]<-id
