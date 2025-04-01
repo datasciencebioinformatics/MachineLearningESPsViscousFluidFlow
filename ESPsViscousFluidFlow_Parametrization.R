@@ -7,8 +7,8 @@ g=9.81
 # Store the flow rate in m3s1
 All_viscous$Q<-0
 
-# Store the heamp value P
-All_viscous$H<-0
+# Store the diameter Impelleters diameter
+All_viscous$D<-0
 
 # First, Calculate the velocity
 for (measure in rownames(All_viscous))
@@ -30,5 +30,5 @@ for (measure in rownames(All_viscous))
   All_viscous[measure,"Q"]<-Q/(d*3600)
 
   # [m]
-  All_viscous[measure,"H"]<-d*
+  All_viscous[measure,"D"]<-id
 }
