@@ -10,6 +10,9 @@ N   <-3
 # Store the useful power Ph
 All_viscous$P_h<-0
 
+# The pump efficiency (n) is defined as:
+All_viscous$n<-0
+
 # Store the pump head
 All_viscous$H<-0
 
@@ -18,12 +21,6 @@ All_viscous$BHP<-0
 
 # Store the flow rate in m3s1
 All_viscous$Q<-0
-
-# Store the diameter Impelleters diameter
-All_viscous$D<-0
-
-# Store the kinetic viscosity
-All_viscous$kv<-0
 
 # First, Calculate the velocity
 for (measure in rownames(All_viscous))
@@ -49,36 +46,11 @@ for (measure in rownames(All_viscous))
   T=as.numeric(All_viscous[measure,"Net.Shaft.Torque"])
 
   # ESP is the BHP
-  BHP=(1/N)*(w*T)
+  All_viscous[measure,"BHP"]=(1/N)*(w*T)
 
   # useful power Ph
-  All_viscous[measure,"P_h"]<- p*g*H*Q
-
-  # Inner diameter of pipe, di in m
-  # [m]
-  id  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
+  All_viscous[measure,"P_h"]<- p*g*All_viscous[measure,"H"]*Q
 
   # The pump efficiency (n) is defined as:
-  n = Ph/BHP
-
-  # [m]
-  All_viscous[measure,"D"]<-id
-
-  # Take the parameters to calculate kv
-  Velocity_H = All_viscous[measure,"Velocity_H"]
-  L          =All_viscous[measure,"L"]
-  
-  # https://en.wikipedia.org/wiki/Reynolds_number
-  vicosity=as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
-  d=d                  # d density    (kg/m3)
-  dv=vicosity          # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
-  kv=dv/d              # kv kinetic viscosity (m2/s))
-
-  # kv [m2/s]
-  All_viscous[measure,"kv"]<-id
-
+  All_viscous[measure,"n"] <- All_viscous[measure,"P_h"]/BHP
 }
-All_viscous$Q,All_viscous_Re_A
-
-ggplot(na.omit(All_viscous), aes(x=Q, y=Re_A, color=equip)) + geom_point()  + facet_wrap(vars(fluid,RPM), nrow = 3, scales="free")
-
