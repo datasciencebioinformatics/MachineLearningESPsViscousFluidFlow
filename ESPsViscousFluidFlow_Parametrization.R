@@ -10,6 +10,9 @@ All_viscous$Q<-0
 # Store the diameter Impelleters diameter
 All_viscous$D<-0
 
+# Store the diameter Impelleters diameter
+All_viscous$kv<-0
+
 # First, Calculate the velocity
 for (measure in rownames(All_viscous))
 {                     
@@ -31,4 +34,23 @@ for (measure in rownames(All_viscous))
 
   # [m]
   All_viscous[measure,"D"]<-id
+
+  # Take the parameters to calculate kv
+  Velocity_H = All_viscous[measure,"Velocity_H"]
+  L          =All_viscous[measure,"L"]
+  
+  # https://en.wikipedia.org/wiki/Reynolds_number
+  vicosity=as.numeric(All_viscous[measure,"Outlet.Viscosity.mo"])
+  d=d                  # d density    (kg/m3)
+  dv=vicosity          # dv dynamic viscosity (Pa·s or kg/ms) cP*0.001
+  kv=dv/d              # kv kinetic viscosity (m2/s))
+
+  # kv [m2/s]
+  All_viscous[measure,"kv"]<-id
+
 }
+
+All_viscous$Q,All_viscous_Re_A
+
+ggplot(na.omit(All_viscous), aes(x=Q, y=Re_A, color=equip)) + geom_point()  + facet_wrap(vars(fluid,RPM), nrow = 3, scales="free")
+
