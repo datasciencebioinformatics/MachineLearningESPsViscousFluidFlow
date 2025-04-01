@@ -31,7 +31,7 @@ for (measure in rownames(All_viscous))
   # The Flow Rate, Q 
   # [kg/h]
   Q=as.numeric(All_viscous[measure,"Flow.rate"])
-
+  
   # Store inlet and outlet pressure
   P1  <-as.numeric(All_viscous[measure,"Inlet.Pressure.P1"])
   P2  <-as.numeric(All_viscous[measure,"Outlet.Pressure.P2"])
@@ -40,7 +40,16 @@ for (measure in rownames(All_viscous))
   p  <-as.numeric(All_viscous[measure,"Inlet.Density.ρi"])
 
   # Head pump
-  All_viscous[measure,"H"]<-(P2-P1)/(d*g)*(1/N) 
+  All_viscous[measure,"H"]<-((P2-P1)/(d*g))*(1/N) 
+
+  # The rotational speed w in rpm
+  w=as.numeric(All_viscous[measure,"RPM"])
+
+  # Net.Shaft.Torque
+  T=as.numeric(All_viscous[measure,"Net.Shaft.Torque"])
+
+  # ESP is the BHP
+  BHP=(1/N)*(w*T)
 
   # useful power Ph
   All_viscous[measure,"P_h"]<- p*g*H*Q
@@ -48,6 +57,9 @@ for (measure in rownames(All_viscous))
   # Inner diameter of pipe, di in m
   # [m]
   id  <-as.numeric(metada_data[metada_data$model==equip & metada_data$Metric=="rads","Impeller.diameter"]) 
+
+  # The pump efficiency (n) is defined as:
+  n = Ph/BHP
 
   # [m]
   All_viscous[measure,"D"]<-id
@@ -66,7 +78,6 @@ for (measure in rownames(All_viscous))
   All_viscous[measure,"kv"]<-id
 
 }
-
 All_viscous$Q,All_viscous_Re_A
 
 ggplot(na.omit(All_viscous), aes(x=Q, y=Re_A, color=equip)) + geom_point()  + facet_wrap(vars(fluid,RPM), nrow = 3, scales="free")
