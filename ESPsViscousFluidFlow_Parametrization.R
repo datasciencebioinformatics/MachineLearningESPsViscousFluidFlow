@@ -92,9 +92,8 @@ for (measure in rownames(merge_water_viscous))
   merge_water_viscous[measure,"psi"]<- (merge_water_viscous[measure,"H"]*g)/((w^2)*(D^2))
 }
 ################################################################################################################
-# Reproduce Fig. 5—ESP P47 dimensionless performance with water
+# Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
 ESP_P47_water<-merge_water_viscous[merge_water_viscous$RPM=="3500" & merge_water_viscous$equip=="P47",]
-
 
 # Melt tabele
 ESP_P47_water_plot_Q_H <- ggplot(ESP_P47_water, aes(x = Q, y = H,shape = RPM,colour=fluid))   + geom_point() + theme_bw()   + ggtitle ("Flow rate Q (m3/h) vs. Head H")    + ylab("Head H")  +  xlab("Flow rate Q m3/h") + theme(legend.position = "none")
@@ -107,5 +106,6 @@ ESP_P47_water_plot_n   <- ggplot(ESP_P47_water, aes(x = Q, y = n,shape = RPM,col
 png(filename=paste(project_folder,"ESP_P47_water_RPM3500.png",sep=""), width = 20, height = 25, res=600, units = "cm")  
  grid.arrange(ESP_P47_water_plot_Q_H,ESP_P47_water_plot_BHP,ESP_P47_water_plot_n, nrow =3)
 dev.off()
+################################################################################################################
 
 
