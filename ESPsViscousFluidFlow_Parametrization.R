@@ -26,7 +26,7 @@ merge_water_viscous$H<-0
 merge_water_viscous$BHP<-0
 
 # Store the flow rate in m3s1
-Q = volumetric flow rate, L3 t–1 , m3/h
+# Q = volumetric flow rate, L3 t–1 , m3/h
 merge_water_viscous$Q<-0
 
 # dimensionless flow rate
