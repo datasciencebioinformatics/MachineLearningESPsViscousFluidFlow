@@ -50,7 +50,7 @@ for (measure in rownames(merge_water_viscous))
   
   # Density
   # p = density, mL–3, kg/m3
-  # Unit checked pa
+  # Unit checked kg/m3
   p  <-as.numeric(merge_water_viscous[measure,"Inlet.Density.ρi"])
 
   # The Flow Rate, Q 
@@ -63,9 +63,12 @@ for (measure in rownames(merge_water_viscous))
   merge_water_viscous[measure,"H"]<-((P2-P1)/(d*g))*(1/N) 
 
   # The rotational speed w in rpm
+  # unit checked RPM
   w=as.numeric(merge_water_viscous[measure,"RPM"])
 
   # Net.Shaft.Torque
+  # T = shaft torque, mL2,t–2, N·m
+  # unit checked N·m
   T=as.numeric(merge_water_viscous[measure,"Shaft.Torque"])
 
   # ESP is the BHP
