@@ -113,3 +113,13 @@ colnames(metada_data_rads)<-c("model","Impeller.diameter","1800","2400","3000","
 # Compile metada data
 metada_data<-rbind(metada_data_rpm,metada_data_rads)
 #########################################################################################################
+# Rename Shaft.Torque
+colnames(All_viscous)[9]<-"Shaft.Torque"
+
+# Colnames
+common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames(All_water))]
+
+# Merge tables
+merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
+##################################################################################################
+
