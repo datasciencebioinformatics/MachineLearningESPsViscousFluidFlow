@@ -29,12 +29,6 @@ merge_water_viscous$BHP<-0
 # Q = volumetric flow rate, L3 t–1 , m3/h
 merge_water_viscous$Q<-0
 
-# dimensionless flow rate
-merge_water_viscous$teta<-0
-
-# dimensionless head psi
-merge_water_viscous$psi<-0
-
 # First, Calculate the velocity
 for (measure in rownames(merge_water_viscous))
 { 
@@ -67,8 +61,8 @@ for (measure in rownames(merge_water_viscous))
 
   # The rotational speed w in rpm
   # unit checked RPM
-  w=as.numeric(merge_water_viscous[measure,"RPM"])*0.1047
-
+  w=as.numeric(merge_water_viscous[measure,"RPM"])
+  
   # Net.Shaft.Torque
   # T = shaft torque, mL2,t–2, N·m
   # unit checked N·m
@@ -85,25 +79,12 @@ for (measure in rownames(merge_water_viscous))
   # n = efficiency, dimensionless [%]
   merge_water_viscous[measure,"n"] <- merge_water_viscous[measure,"P_h"]/BHP
 
-  # dimensionless flow rate
-  merge_water_viscous[measure,"teta"]<- merge_water_viscous[measure,"Q"]/(w*(D^3))
-
-  # dimensionless head psi
-  merge_water_viscous[measure,"psi"]<- (merge_water_viscous[measure,"H"]*g)/((w^2)*(D^2))
 }
+################################################################################################################
 # Subset ESP_P47 
 ESP_P47_water<-merge_water_viscous[merge_water_viscous$RPM=="3500" & merge_water_viscous$equip=="P47",]
 ################################################################################################################
-# Fig. 5—ESP P47 dimensionless performance with water.
-# Melt tabele
-ggplot(ESP_P47_water, aes(x = teta, y = psi,shape = RPM,colour=fluid))   + geom_point() + theme_bw()  
-ggplot(ESP_P47_water, aes(x = teta, y = n,shape = RPM,colour=fluid))   + geom_point() + theme_bw()  
-
-
-
-################################################################################################################
 # Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
-
 # Melt tabele
 ESP_P47_water_plot_Q_H <- ggplot(ESP_P47_water, aes(x = Q, y = H,shape = RPM,colour=fluid))   + geom_point() + theme_bw()   + ggtitle ("Flow rate Q (m3/h) vs. Head H")    + ylab("Head H")  +  xlab("Flow rate Q m3/h") + theme(legend.position = "none")
 ESP_P47_water_plot_BHP <- ggplot(ESP_P47_water, aes(x = Q, y = BHP,shape = RPM,colour=fluid))   + geom_point() + theme_bw() + ggtitle ("Flow rate Q (m3/h) vs. Power BHP") + ylab("Power BHP")  +  xlab("Flow rate Q m3/h")     + theme(legend.position = "none")
