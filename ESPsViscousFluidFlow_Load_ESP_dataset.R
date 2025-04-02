@@ -116,6 +116,9 @@ metada_data<-rbind(metada_data_rpm,metada_data_rads)
 # Rename Shaft.Torque
 colnames(All_viscous)[9]<-"Shaft.Torque"
 
+# Inlet.Density.ρi
+All_water$Inlet.Density.ρi<-1000
+
 # Colnames
 common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames(All_water))]
 
