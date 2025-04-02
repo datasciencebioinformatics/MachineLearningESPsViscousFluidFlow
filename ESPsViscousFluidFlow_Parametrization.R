@@ -67,7 +67,7 @@ for (measure in rownames(merge_water_viscous))
 
   # The rotational speed w in rpm
   # unit checked RPM
-  w=as.numeric(merge_water_viscous[measure,"RPM"])
+  w=as.numeric(merge_water_viscous[measure,"RPM"])*0.1047
 
   # Net.Shaft.Torque
   # T = shaft torque, mL2,t–2, N·m
@@ -79,7 +79,7 @@ for (measure in rownames(merge_water_viscous))
   merge_water_viscous[measure,"BHP"]=(1/N)*(w*T)
 
   # useful power Ph
-  merge_water_viscous[measure,"P_h"]<- p*g*merge_water_viscous[measure,"H"]*Q
+  merge_water_viscous[measure,"P_h"]<- p*g*merge_water_viscous[measure,"H"]*merge_water_viscous[measure,"Q"]
 
   # The pump efficiency (n) is defined as:
   # n = efficiency, dimensionless [%]
