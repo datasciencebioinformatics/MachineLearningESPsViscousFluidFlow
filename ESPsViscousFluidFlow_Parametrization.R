@@ -57,7 +57,7 @@ for (measure in rownames(merge_water_viscous))
 
   # Head pump
   # H = head, L, m
-  merge_water_viscous[measure,"H"]<-((P2-P1)/(d*g))*(1/N) 
+  merge_water_viscous[measure,"H"]<-((P2-P1)/(p*g))*(1/N) 
 
   # The rotational speed w in rpm
   # unit checked RPM
@@ -77,7 +77,7 @@ for (measure in rownames(merge_water_viscous))
 
   # The pump efficiency (n) is defined as:
   # n = efficiency, dimensionless [%]
-  merge_water_viscous[measure,"n"] <- merge_water_viscous[measure,"P_h"]/BHP
+  merge_water_viscous[measure,"n"] <- merge_water_viscous[measure,"P_h"]/merge_water_viscous[measure,"BHP"]
 
 }
 ################################################################################################################
