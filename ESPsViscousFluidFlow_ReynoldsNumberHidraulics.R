@@ -39,3 +39,7 @@ for (measure in rownames(All_viscous))
   
   All_viscous[measure,"Re_H"]<-reynolds_number(V = Velocity_H, D = L, nu = kv)
 }
+#####################################################################################
+png(filename=paste(project_folder,"Boxplot_All_viscous_Hydraulics.png",sep=""), width = 15, height = 15, res=600, units = "cm")  
+  ggplot(na.omit(All_viscous), aes(x=fluid, y=Re_H, fill=equip)) +  geom_boxplot()+ theme(legend.position = "bottom") + theme_bw()
+dev.off()
