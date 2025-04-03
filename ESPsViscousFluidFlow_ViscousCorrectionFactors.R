@@ -21,3 +21,10 @@ BEP_viscous_Q<-max(Q_viscous_fit$fitted.values)
 ################################################################################################################
 # The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
 # therefore, the BEP_water_Q is analogous BEP_water_Q.
+C_Q<-BEP_water_Q/BEP_viscous_Q
+################################################################################################################
+ESP_water[ESP_water$Q == sort((ESP_water)$Q)[match.closest(BEP_water_Q,  sort((ESP_water)$Q))],]
+
+
+
+
