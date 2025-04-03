@@ -18,10 +18,6 @@ Q_viscous_fit <- lm(ESP_fluid$Q ~ poly(ESP_fluid$n, 5, raw=TRUE))
 # Find maximum value
 BEP_water_Q<-max(Q_water_fit$fitted.values)
 BEP_viscous_Q<-max(Q_viscous_fit$fitted.values)
-
-# The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
-# therefore, the BEP_water_Q is analogous BEP_water_Q.
-C_Q<-BEP_water_Q/BEP_viscous_Q
 ################################################################################################################
 # The heads and efficiencies corresponding to these flow rates define the other correction facter
 # Take all the infofmation corresponding the BEP_water_Q and BEP_viscous_Q
@@ -71,6 +67,17 @@ ESP_fluid_BEP_Q[,"P_h"]<- p_viscous*g*ESP_fluid_BEP_Q[,"H"]*ESP_fluid_BEP_Q[,"Q"
 # n = efficiency, dimensionless [%]
 ESP_water_BEP_Q[,"n"] <- ESP_water_BEP_Q[,"P_h"]/ESP_water_BEP_Q[,"BHP"]
 ESP_fluid_BEP_Q[,"n"] <- ESP_fluid_BEP_Q[,"P_h"]/ESP_fluid_BEP_Q[,"BHP"]
+######################################################################################3
+# The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
+# therefore, the BEP_water_Q is analogous BEP_water_Q.
+C_Q<-BEP_water_Q/BEP_viscous_Q
+
+# Correction 
+C_n=ESP_water_BEP_Q[,"n"]/ESP_fluid_BEP_Q[,"n"]
+
+# Correction 
+C_H=ESP_water_BEP_Q[,"H"]/ESP_fluid_BEP_Q[,"H"]
+
 
 
 
