@@ -16,7 +16,7 @@ for (measure in rownames(All_viscous))
                      
   # The Flow Rate, Q 
   # [kg/h]
-  m=as.numeric(All_viscous[measure,"Flow.rate"])
+  m=as.numeric(All_viscous[measure,"Flow.rate"])/3600
   
   # Density
   # [kg/m³]
@@ -59,7 +59,7 @@ for (measure in rownames(All_viscous))
                      
   # The Flow Rate, Q 
   # [kg/h]
-  m=as.numeric(All_viscous[measure,"Flow.rate"])
+  m=as.numeric(All_viscous[measure,"Flow.rate"])/3600
   
   # Density
   # [kg/m³]
