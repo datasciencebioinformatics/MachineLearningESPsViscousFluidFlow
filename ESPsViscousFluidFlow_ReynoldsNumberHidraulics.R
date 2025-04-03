@@ -6,7 +6,7 @@
 All_viscous$L <- metada_data[match(All_viscous$equip,metada_data$model),"Impeller.diameter"]
 
 # Mass flow rate can be used to calculate velocity through the volumetric flow rate equation. The equation is ṁ = (v * A) * ρ, where: 
-All_viscous$Q <-as.numeric(All_viscous$Flow.rate)/(as.numeric(All_viscous$Inlet.Density.ρi))
+All_viscous$Q <-as.numeric(All_viscous$Flow.rate)/3600
 
 # Collumn to add the velocity calculated by the hydrolautics
 All_viscous$Velocity_H<-0
