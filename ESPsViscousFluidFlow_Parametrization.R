@@ -72,13 +72,18 @@ for (measure in rownames(merge_water_viscous))
   # BHP = mL^2t^–3, watts
   merge_water_viscous[measure,"BHP"]=(1/N)*(w*T)
 
+  #P_{h}: The power in kilowatts (kW) 
+  # Q    : The flow capacity in cubic meters per hour (m3/h) 
+  # p    : The density of the fluid in kilograms per cubic meter (kg/m3) 
+  # g    : The acceleration due to gravity (9.81m/s2) 
+  # H    : The differential head in meters (m)
+
   # useful power Ph
-  merge_water_viscous[measure,"P_h"]<- p*g*merge_water_viscous[measure,"H"]*merge_water_viscous[measure,"Q"]
+  merge_water_viscous[measure,"P_h"]<- (p*g*merge_water_viscous[measure,"H"]*merge_water_viscous[measure,"Q"])
 
   # The pump efficiency (n) is defined as:
   # n = efficiency, dimensionless [%]
   merge_water_viscous[measure,"n"] <- merge_water_viscous[measure,"P_h"]/merge_water_viscous[measure,"BHP"]
-
 }
 ################################################################################################################
 # Subset ESP_P47 
