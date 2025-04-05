@@ -86,6 +86,8 @@ for (measure in rownames(merge_water_viscous))
   merge_water_viscous[measure,"n"] <- merge_water_viscous[measure,"P_h"]/merge_water_viscous[measure,"BHP"]
 }
 ################################################################################################################
+# To Do:
+# reproduce Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
 # Subset ESP_P47 
 ESP_P47_water<-merge_water_viscous[merge_water_viscous$RPM=="3500" & merge_water_viscous$equip=="P47",]
 ################################################################################################################
