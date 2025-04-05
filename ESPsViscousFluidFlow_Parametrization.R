@@ -105,8 +105,17 @@ dev.off()
 # Goal of the analysis, compare the efficiency per equipement, rpm and Inlet.Viscosity
 
 # Data.frame only with selected variables
-viscosity_RPM_equip_n<-merge_water_viscous[,c("Inlet.Viscosity","RPM","equip","n","fluid")]
+viscosity_RPM_equip_n<-na.omit(merge_water_viscous[,c("Inlet.Viscosity","RPM","equip","n","fluid")])
+
+# Split dataset in water, glycerin and diluted glycering for rpm 3000
+viscosity_RPM_equip_n_water          <-viscosity_RPM_equip_n[which(viscosity_RPM_equip_n$fluid=="water" & viscosity_RPM_equip_n$RPM=="3000"),]
+viscosity_RPM_equip_n_Glycerin       <-viscosity_RPM_equip_n[which(viscosity_RPM_equip_n$fluid=="Glycerin" & viscosity_RPM_equip_n$RPM==3000),]
+viscosity_RPM_equip_n_DilutedGlycerin<-viscosity_RPM_equip_n[which(viscosity_RPM_equip_n$fluid=="Diluted Glycerin" & viscosity_RPM_equip_n$RPM==3000),]
+
+
 
 # Basic box plot
-p <- ggplot(viscosity_RPM_equip_n, aes(x=equip, y=n)) +geom_boxplot() + facet_wrap(vars(Inlet.Viscosity,RPM), nrow = 3, scales="free") + theme_bw()
+png(filename=paste(project_folder,"viscosity_RPM_equip_n_Glycerin.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
+  ggplot(viscosity_RPM_equip_n_Glycerin, aes(x=equip, y=n)) +geom_boxplot() + facet_wrap(vars(Inlet.Viscosity,RPM), nrow = 3, scales="free") + theme_bw() + ggtitle("Glycerin samples")+ theme(axis.text.x = element_text(angle = 90))
+dev.off()
 ################################################################################################################
