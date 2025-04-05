@@ -101,5 +101,12 @@ png(filename=paste(project_folder,"ESP_P47_water_RPM3500.png",sep=""), width = 2
   grid.arrange(ESP_P47_water_plot_Q_H,ESP_P47_water_plot_BHP,ESP_P47_water_plot_n, nrow =3)
 dev.off()
 ################################################################################################################
+# Subset variables Inlet.Viscosity, RPM, equip and efficiency n.
+# Goal of the analysis, compare the efficiency per equipement, rpm and Inlet.Viscosity
 
+# Data.frame only with selected variables
+viscosity_RPM_equip_n<-merge_water_viscous[,c("Inlet.Viscosity","RPM","equip","n","fluid")]
 
+# Basic box plot
+p <- ggplot(viscosity_RPM_equip_n, aes(x=equip, y=n)) +geom_boxplot() + facet_wrap(vars(Inlet.Viscosity,RPM), nrow = 3, scales="free") + theme_bw()
+################################################################################################################
