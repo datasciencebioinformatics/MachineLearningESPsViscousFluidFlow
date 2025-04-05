@@ -130,5 +130,3 @@ common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames
 # Merge tables
 merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
 ##################################################################################################
-# Change line color and fill color
-ggplot(merge_water_viscous, aes(x=as.numeric(Inlet.Viscosity.mi))) + geom_histogram(color="darkblue", fill="lightblue") +scale_x_continuous(breaks = seq(0, 1300, by = 50),bins=200)
