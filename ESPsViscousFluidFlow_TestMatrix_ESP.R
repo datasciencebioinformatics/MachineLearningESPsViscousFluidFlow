@@ -22,16 +22,4 @@ merge_water_viscous[which(as.numeric(merge_water_viscous$Inlet.Viscosity.mi) > 9
 merge_water_viscous[which(as.numeric(merge_water_viscous$Inlet.Viscosity.mi) > 1151 & as.numeric(merge_water_viscous$Inlet.Viscosity.mi) < 1500),"Inlet.Viscosity"]<-1273
 
 
-[0-10]
-[11-30]
-[31-55]
-[55-100]
-[101-200]
-[201-275]
-[276-400]
-[401-600]
-[601-725]
-[726-950]
-[951-1150]
-[1150-1500]
-
+merge_water_viscous[,c("equip","RPM","Inlet.Viscosity")]
