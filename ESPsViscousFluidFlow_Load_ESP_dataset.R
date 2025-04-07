@@ -1,10 +1,6 @@
 #########################################################################################################
 # All the excel files in the project folder are loaded in this                                          #
 #########################################################################################################
-# Set the project folder 
-project_folder="/home/felipe/Documents/MachineLearningESPsViscousFluidFlow/"                            # With access to the google driver
-#########################################################################################################
-
 # For each sample, the data will be loaded by all rotational speed 
 # First, the P100 in water samples
 P100_viscous_2400_data <- cbind(data.frame(read_excel(paste(project_folder,"P100_viscous.xlsx",sep=""), sheet = "2400 rpm",skip = 9)),RPM="2400")
