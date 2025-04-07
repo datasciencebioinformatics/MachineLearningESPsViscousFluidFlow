@@ -14,8 +14,11 @@ source(paste(project_folder,"ESPsViscousFluidFlow_Load_ESP_dataset.R",sep=""))
 #### 4) Calculate the efficiency parameters (Efficiency, Head, Power)
 source(paste(project_folder,"ESPsViscousFluidFlow_Parametrization.R",sep=""))
 
-#### 5) Calculate the BEP
+#### 5) Add the test matrix (RPM, equipment, visosity)
+source(paste(project_folder,"ESPsViscousFluidFlow_TestMatrix_ESP.R",sep=""))
+
+#### 6) Calculate the BEP
 source(paste(project_folder,"ESPsViscousFluidFlow_BEP_Caclulation.R",sep=""))
 
-#### 6) Load ESP dataset from files
+#### 7) Load ESP dataset from files
 source(paste(project_folder,"ESPsViscousFluidFlow_Exploratory_ESP_dataset.R",sep=""))
