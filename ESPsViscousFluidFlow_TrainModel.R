@@ -19,15 +19,12 @@ testing_features  <-subselect_merge_water_viscous[trainning,]
 # Basic Parameter Tuning
 fitControl <- trainControl(number = 10,
                            repeats = 10)
-lm_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = regressControl)
-rf_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "rf", trControl = regressControl)
+
+lm_viscous    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = fitControl)
+rf_viscous    <- train(n ~ ., data = subselect_merge_water_viscous, method = "rf", trControl = fitControl)
 #########################################################################################################
-resamps <- resamples(list(svmLinear = svm_1_espset, 
-                          svmRadial = svm_2_espset,
-                          knn = knn_espset,
-                          mlp=mlp_espset,
-                          dnn=dnn_espset,                 
-                          glm=glm_espset))                          
+resamps <- resamples(list(svmLinear = lm_viscous, 
+                          svmRadial = rf_viscous))                          
 #########################################################################################################
 # Set up bwplot
 theme1 <- trellis.par.get()
