@@ -1,10 +1,10 @@
 #########################################################################################################
 # Store nome of analyzed variables
-variables<-variables<-c("Shaft.Torque","RPM","n" ,"H","BHP","Q","Inlet.Viscosity")
+# Flow rate	Inlet Temperature T1 	Inlet Temperature T2 			Inlet Pressure P1	Outlet Pressure P2	Shaft Torque
+variables<-variables<-c("Shaft.Torque","RPM","n")
 
 # Sub-select collumns
 subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
-
 
 # Converto numeric
 subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))
