@@ -76,7 +76,7 @@ png(filename=paste(project_folder,"melt_water_viscous_sub_T1.png",sep=""), width
 dev.off()
 #########################################################################################################
 # Common variables water and fluid
-fluid_variables<-c("Flow.rate","Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4", "Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o","Inlet.Pressure.P1", "Outlet.Pressure.P2", "Net.Shaft.Torque", "Inlet.Density.ρi", "Inlet.Viscosity.mi",  "Outlet.Viscosity.mo", "RPM")
+fluid_variables<-c("Flow.rate","Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4", "Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o","Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "Inlet.Density.ρi", "Inlet.Viscosity.mi",  "Outlet.Viscosity.mo", "RPM")
 
 # Only variables of fluids 
 water_variables<-c("Flow.rate", "Inlet.Temperature.T1", "Inlet.Temperature.T2",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")
