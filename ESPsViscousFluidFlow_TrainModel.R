@@ -1,6 +1,6 @@
 #########################################################################################################
 # Store nome of analyzed variables
-variables<-variables<-c("Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4","Inlet.Pressure.P1","Outlet.Pressure.P2","Shaft.Torque","Inlet.Density.ρi", "Inlet.Viscosity.mi", "Outlet.Viscosity.mo", "fluid","replicate","RPM","equip","P_h","n" ,"H","BHP","Q","Inlet.Viscosity")
+variables<-variables<-c("Inlet.Temperature.T1","Inlet.Temperature.T2","Outlet.Temperature.T3","Outlet.Temperature.T4","Inlet.Pressure.P1","Outlet.Pressure.P2","Shaft.Torque","Inlet.Density.ρi", "Inlet.Viscosity.mi", "Outlet.Viscosity.mo", "fluid","RPM","equip","n" ,"H","BHP","Q","Inlet.Viscosity")
 
 # Sub-select collumns
 subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
