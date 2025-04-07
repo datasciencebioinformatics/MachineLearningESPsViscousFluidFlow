@@ -1,7 +1,7 @@
 #########################################################################################################
 # Store nome of analyzed variables
 # Flow rate	Inlet Temperature T1 	Inlet Temperature T2 			Inlet Pressure P1	Outlet Pressure P2	Shaft Torque
-variables<-variables<-c("Shaft.Torque","RPM","n")
+variables<-variables<-c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","n")
 
 # Sub-select collumns
 subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
@@ -28,7 +28,9 @@ fitControl <- trainControl(number = 3)
 rf_viscous    <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
 lm_viscous    <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
 #########################################################################################################
-
+resamps <- resamples(list(rf_viscous = rf_viscous, 
+                          lm_viscous = lm_viscous))    
+                                                  
 # bwplo               
 png(filename=paste(output_dir,"Plot_bwplot_results.png",sep=""), width = 25, height = 12, res=600, units = "cm")  
   bwplot(resamps, layout = c(3, 1))
