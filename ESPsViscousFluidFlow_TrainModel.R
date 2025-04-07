@@ -21,8 +21,8 @@ testing_features  <-subselect_merge_water_viscous[testing,]
 fitControl <- trainControl(number = 3)
 
 # Train regression-like models
-rf_viscous    <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
 lm_viscous    <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
+rf_viscous    <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
 #########################################################################################################
 
 # bwplo               
