@@ -4,6 +4,10 @@ variables<-variables<-c("Shaft.Torque","RPM","n" ,"H","BHP","Q","Inlet.Viscosity
 
 # Sub-select collumns
 subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
+
+
+# Converto numeric
+subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))
 #########################################################################################################
 # Split into trainning and testing
 trainning<- as.vector(createDataPartition(subselect_merge_water_viscous$n,times = 1,p = 0.5,list = TRUE)[[1]])
@@ -21,8 +25,8 @@ testing_features  <-subselect_merge_water_viscous[testing,]
 fitControl <- trainControl(number = 3)
 
 # Train regression-like models
-lm_viscous    <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
 rf_viscous    <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
+lm_viscous    <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
 #########################################################################################################
 
 # bwplo               
