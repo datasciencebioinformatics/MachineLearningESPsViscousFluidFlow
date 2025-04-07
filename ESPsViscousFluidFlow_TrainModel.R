@@ -18,8 +18,8 @@ trainning_features<-subselect_merge_water_viscous[trainning,]
 testing_features  <-subselect_merge_water_viscous[trainning,]
 #########################################################################################################
 # Basic Parameter Tuning
-fitControl <- trainControl(number = 10,
-                           repeats = 10)
+fitControl <- trainControl(number = 3,
+                           repeats = 3)
 
 # Train regression-like models
 lm_viscous    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = fitControl)
