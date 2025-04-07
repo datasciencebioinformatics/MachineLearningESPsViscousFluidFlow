@@ -17,8 +17,15 @@ source(paste(project_folder,"ESPsViscousFluidFlow_Parametrization.R",sep=""))
 #### 5) Add the test matrix (RPM, equipment, visosity)
 source(paste(project_folder,"ESPsViscousFluidFlow_TestMatrix_ESP.R",sep=""))
 
+#### 5) Add the test matrix (RPM, equipment, visosity)
+source(paste(project_folder,"ESPsViscousFluidFlow_TestMatrix_ESP.R",sep=""))
+
 #### 6) Calculate the BEP
 source(paste(project_folder,"ESPsViscousFluidFlow_BEP_Caclulation.R",sep=""))
 
 #### 7) Load ESP dataset from files
 source(paste(project_folder,"ESPsViscousFluidFlow_Exploratory_ESP_dataset.R",sep=""))
+
+#### 8) Train regression-like models
+source(paste(project_folder,"ESPsViscousFluidFlow_TrainModel.R",sep=""))
+
