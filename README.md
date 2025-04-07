@@ -1,4 +1,4 @@
-### 1) Set the project folder either on Linux or in Window
+#### 1) Set the project folder either on Linux or in Window
 #### a) If in Linux 
 project_folder="/home/felipe/Documents/MachineLearningESPsViscousFluidFlow/"
 
