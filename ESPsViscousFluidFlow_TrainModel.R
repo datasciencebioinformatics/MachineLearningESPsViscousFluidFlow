@@ -41,8 +41,8 @@ varImp_lm_viscous <- varImp(lm_viscous, scale = FALSE)
 varImp_rf_viscous <- varImp(rf_viscous, scale = FALSE)
 
 # Plot variable importance from the regression-like models
-plot_lm_viscous<-plot(varImp_lm_viscous, main = "svmLinear") 
-plot_rf_viscous<-plot(varImp_rf_viscous, main = "svmRadial")
+plot_lm_viscous<-plot(varImp_lm_viscous, main = "lm") 
+plot_rf_viscous<-plot(varImp_rf_viscous, main = "rf")
 
 # bwplot               
 png(filename=paste(output_dir,"Variable_Importance_results.png",sep=""), width = 25, height = 25, res=600, units = "cm")  
