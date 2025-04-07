@@ -15,27 +15,15 @@ trainingControl_features<-subselect_merge_water_viscous[trainning,]
 
 # Store trainning and testing data
 trainning_features<-subselect_merge_water_viscous[trainning,]
-testing_features  <-subselect_merge_water_viscous[trainning,]
+testing_features  <-subselect_merge_water_viscous[testing,]
 #########################################################################################################
 # Basic Parameter Tuning
 fitControl <- trainControl(number = 3)
 
 # Train regression-like models
-lm_viscous    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = fitControl)
-rf_viscous    <- train(n ~ ., data = subselect_merge_water_viscous, method = "rf", trControl = fitControl)
-
+rf_viscous    <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
+lm_viscous    <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
 #########################################################################################################
-# Resample models for comparisson
-resamps <- resamples(list(lm_viscous = lm_viscous, 
-                          rf_viscous = rf_viscous)) 
-
-# Set up bwplot
-theme1 <- trellis.par.get()
-theme1$plot.symbol$col = rgb(.2, .2, .2, .4)
-theme1$plot.symbol$pch = 16
-theme1$plot.line$col = rgb(1, 0, 0, .7)
-theme1$plot.line$lwd <- 2
-trellis.par.set(theme1)
 
 # bwplo               
 png(filename=paste(output_dir,"Plot_bwplot_results.png",sep=""), width = 25, height = 12, res=600, units = "cm")  
