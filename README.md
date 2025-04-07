@@ -1,12 +1,11 @@
 #########################################################################################################
-### Set the project folder - Linux 
+#### Set the project folder - Linux 
 project_folder="/home/felipe/Documents/MachineLearningESPsViscousFluidFlow/"
 
-### Set the project folder - Windows
+#### Set the project folder - Windows
 project_folder="C:/Users/Valter/Downloads/"
 #########################################################################################################
-
-# First, load all packages
+#### Second, load all packages
 source(paste(project_folder,"ESPsViscousFluidFlow_Load_All_R_Packages.R"))
 
 
