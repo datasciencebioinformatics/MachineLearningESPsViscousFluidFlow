@@ -24,6 +24,8 @@ fitControl <- trainControl(method = "repeatedcv",
                            classProbs = TRUE)
 
 pls_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "pls", trControl = fitControl,metric="ROC")
+lm_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = fitControl,metric="ROC")
+rf_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "rf", trControl = fitControl,metric="ROC")
 
 knn_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "knn", trControl = fitControl,metric="ROC")
 mlp_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "mlp", trControl = fitControl,metric="ROC")
