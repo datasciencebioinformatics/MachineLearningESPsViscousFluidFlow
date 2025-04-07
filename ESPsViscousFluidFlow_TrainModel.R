@@ -33,7 +33,7 @@ resamps <- resamples(list(rf_viscous = rf_viscous,
                                                   
 # bwplo               
 png(filename=paste(output_dir,"Plot_bwplot_results.png",sep=""), width = 25, height = 12, res=600, units = "cm")  
-  bwplot(resamps, layout = c(3, 1))
+  bwplot(resamps, layout = c(3, 1),scales = list(x = list(relation = "free"),y = list(relation = "free")))
 dev.off()
 #########################################################################################################
 # caclulate variable importance from the regresssion-like models
