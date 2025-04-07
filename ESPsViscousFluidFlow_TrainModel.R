@@ -1,6 +1,6 @@
 #########################################################################################################
 # Store nome of analyzed variables
-variables<-variables<-c("Shaft.Torque","fluid","RPM","equip","n" ,"H","BHP","Q","Inlet.Viscosity")
+variables<-variables<-c("Shaft.Torque","RPM","n" ,"H","BHP","Q","Inlet.Viscosity")
 
 # Sub-select collumns
 subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
