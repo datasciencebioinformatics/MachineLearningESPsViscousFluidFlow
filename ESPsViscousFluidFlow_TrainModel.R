@@ -55,4 +55,3 @@ plot_rf_viscous<-plot(varImp_rf_viscous, main = "svmRadial")
 png(filename=paste(output_dir,"Variable_Importance_results.png",sep=""), width = 25, height = 25, res=600, units = "cm")  
   grid.arrange(plot_lm_viscous,plot_rf_viscous)
 dev.off()
-
