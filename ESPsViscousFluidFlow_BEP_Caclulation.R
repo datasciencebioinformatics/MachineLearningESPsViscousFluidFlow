@@ -41,5 +41,5 @@ df_test_matrix$viscosity<-as.factor(df_test_matrix$viscosity)
 
 # Basic box plot
 png(filename=paste(project_folder,"Best_Efficient_Point_RPM3000.png",sep=""), width = 20, height = 20, res=600, units = "cm")  
-  ggplot(df_test_matrix[df_test_matrix$RPM==3000 & df_test_matrix$fluid=="Glycerin",], aes(x=viscosity, y=BEP)) +geom_boxplot()  + theme_bw() + ggtitle("RPM 3000")+ theme(axis.text.x = element_text(angle = 90)) + facet_wrap(vars(equip), nrow = 3, scales="free")
+  ggplot(df_test_matrix[df_test_matrix$RPM==3000 & df_test_matrix$fluid=="Glycerin",], aes(x=viscosity, y=BEP)) +geom_boxplot()  + theme_bw() + ggtitle("RPM 3000, Glycerin")+ theme(axis.text.x = element_text(angle = 90)) + facet_wrap(vars(equip), nrow = 3, scales="free")
 dev.off()
