@@ -85,39 +85,3 @@ for (measure in rownames(merge_water_viscous))
   # n = efficiency, dimensionless [%]
   merge_water_viscous[measure,"n"] <- merge_water_viscous[measure,"P_h"]/merge_water_viscous[measure,"BHP"]
 }
-################################################################################################################
-# To Do:
-# reproduce Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
-# Subset ESP_P47 
-ESP_P47_water<-merge_water_viscous[merge_water_viscous$RPM=="3500" & merge_water_viscous$equip=="P47",]
-################################################################################################################
-# Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
-# Melt tabele
-ESP_P47_water_plot_Q_H <- ggplot(ESP_P47_water, aes(x = Q, y = H,shape = RPM,colour=fluid))   + geom_point() + theme_bw()   + ggtitle ("Flow rate Q (m3/h) vs. Head H")    + ylab("Head H")  +  xlab("Flow rate Q m3/h") + theme(legend.position = "none") + geom_vline(xintercept=BEP_Q)
-ESP_P47_water_plot_BHP <- ggplot(ESP_P47_water, aes(x = Q, y = BHP,shape = RPM,colour=fluid))   + geom_point() + theme_bw() + ggtitle ("Flow rate Q (m3/h) vs. Power BHP") + ylab("Power BHP")  +  xlab("Flow rate Q m3/h")     + theme(legend.position = "none") + geom_vline(xintercept=BEP_Q) 
-ESP_P47_water_plot_n   <- ggplot(ESP_P47_water, aes(x = Q, y = n/100,shape = RPM,colour=fluid))   + geom_point() + theme_bw()   + ggtitle ("Flow rate Q (m3/h) vs. Efficiency n (%)") + ylab("Efficiency n (%)")  +  xlab("Flow rate Q m3/h")+ theme(legend.position = "bottom") + geom_vline(xintercept=BEP_Q)
-
-# Melt tabele
-# Plot_raw_vibration_data.png                                                                                                            
-png(filename=paste(project_folder,"ESP_P47_water_RPM3500.png",sep=""), width = 20, height = 25, res=600, units = "cm")  
-  grid.arrange(ESP_P47_water_plot_Q_H,ESP_P47_water_plot_BHP,ESP_P47_water_plot_n, nrow =3)
-dev.off()
-################################################################################################################
-# Subset variables Inlet.Viscosity, RPM, equip and efficiency n.
-# Goal of the analysis, compare the efficiency per equipement, rpm and Inlet.Viscosity
-
-# Data.frame only with selected variables
-viscosity_RPM_equip_n<-na.omit(merge_water_viscous[,c("Inlet.Viscosity","RPM","equip","n","fluid")])
-
-# Split dataset in water, glycerin and diluted glycering for rpm 3000
-viscosity_RPM_equip_n_water          <-viscosity_RPM_equip_n[which(viscosity_RPM_equip_n$fluid=="water" & viscosity_RPM_equip_n$RPM=="3000"),]
-viscosity_RPM_equip_n_Glycerin       <-viscosity_RPM_equip_n[which(viscosity_RPM_equip_n$fluid=="Glycerin" & viscosity_RPM_equip_n$RPM==3000),]
-viscosity_RPM_equip_n_DilutedGlycerin<-viscosity_RPM_equip_n[which(viscosity_RPM_equip_n$fluid=="Diluted Glycerin" & viscosity_RPM_equip_n$RPM==3000),]
-
-
-
-# Basic box plot
-png(filename=paste(project_folder,"viscosity_RPM_equip_n_Glycerin.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
-  ggplot(viscosity_RPM_equip_n_Glycerin, aes(x=equip, y=n)) +geom_boxplot() + facet_wrap(vars(Inlet.Viscosity,RPM), nrow = 3, scales="free") + theme_bw() + ggtitle("Glycerin samples")+ theme(axis.text.x = element_text(angle = 90))
-dev.off()
-################################################################################################################
