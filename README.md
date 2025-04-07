@@ -5,6 +5,9 @@ project_folder="/home/felipe/Documents/MachineLearningESPsViscousFluidFlow/"
 #### b) Or in Windows
 project_folder="C:/Users/Valter/Documents/GitHub/MachineLearningESPsViscousFluidFlow/"
 
+#### c) set outputfolder
+output_dir=project_folder
+
 #### 2) Load all packages
 source(paste(project_folder,"ESPsViscousFluidFlow_Load_All_R_Packages.R",sep=""))
 
