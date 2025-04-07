@@ -17,20 +17,10 @@ trainning_features<-subselect_merge_water_viscous[trainning,]
 testing_features  <-subselect_merge_water_viscous[trainning,]
 #########################################################################################################
 # Basic Parameter Tuning
-fitControl <- trainControl(method = "repeatedcv",
-                           number = 10,
-                           repeats = 10,
-                           ## Estimate class probabilities
-                           classProbs = TRUE)
-
-pls_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "pls", trControl = fitControl,metric="ROC")
-lm_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = fitControl,metric="ROC")
-rf_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "rf", trControl = fitControl,metric="ROC")
-
-knn_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "knn", trControl = fitControl,metric="ROC")
-mlp_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "mlp", trControl = fitControl,metric="ROC")
-dnn_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "dnn", trControl = fitControl,metric="ROC")
-glm_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "glm", trControl = fitControl,metric="ROC")
+fitControl <- trainControl(number = 10,
+                           repeats = 10)
+lm_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "lm", trControl = regressControl)
+rf_espset    <- train(n ~ ., data = subselect_merge_water_viscous, method = "rf", trControl = regressControl)
 #########################################################################################################
 resamps <- resamples(list(svmLinear = svm_1_espset, 
                           svmRadial = svm_2_espset,
