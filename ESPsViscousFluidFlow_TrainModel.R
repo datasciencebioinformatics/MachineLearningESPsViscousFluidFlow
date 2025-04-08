@@ -7,10 +7,7 @@ variables<-variables<-c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet
 subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
 
 # Converto numeric
-subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))
-
-# Convert RPM to factor
-subselect_merge_water_viscous$RPM<-as.factor(toString(subselect_merge_water_viscous$RPM))                                             
+subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))                                          
 #########################################################################################################
 # Split into trainning and testing
 trainning<- as.vector(createDataPartition(subselect_merge_water_viscous$n,times = 1,p = 0.5,list = TRUE)[[1]])
@@ -31,10 +28,8 @@ fitControl <- trainControl(number = 3)
 rf_viscous            <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)            # randomForest                                  Ok
 lm_viscous            <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)            # linear regresssion                            Ok      
 rpart_viscous         <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)         # Recursive Partitioning and Regression Trees   Ok
-mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)           # multilayer perceptron                         Ok
 svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)     # Support Vector Machines                       Ok
 knn_viscous           <- train(n ~ ., data = trainning_features, method = "knn", trControl = fitControl)           # K-Nearest Neighbors (KNN)                     Ok
-dnn_viscous           <- train(n ~ ., data = trainning_features, method = "dnn", trControl = fitControl)           # AutoEncoder Deep Neural Network               Ok
 #########################################################################################################
 resamps <- resamples(list(rf = rf_viscous, 
                           lm = lm_viscous,
