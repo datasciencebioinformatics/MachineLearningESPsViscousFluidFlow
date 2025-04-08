@@ -9,8 +9,8 @@ subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
 # Converto numeric
 subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))
 
- subselect_merge_water_viscous$RPM<-as.factor(toString(subselect_merge_water_viscous$RPM))
-                                             
+# Convert RPM to factor
+subselect_merge_water_viscous$RPM<-as.factor(toString(subselect_merge_water_viscous$RPM))                                             
 #########################################################################################################
 # Split into trainning and testing
 trainning<- as.vector(createDataPartition(subselect_merge_water_viscous$n,times = 1,p = 0.5,list = TRUE)[[1]])
