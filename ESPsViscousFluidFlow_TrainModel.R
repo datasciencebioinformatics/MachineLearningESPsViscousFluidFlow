@@ -8,6 +8,9 @@ subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
 
 # Converto numeric
 subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))
+
+ subselect_merge_water_viscous$RPM<-as.factor(toString(subselect_merge_water_viscous$RPM))
+                                             
 #########################################################################################################
 # Split into trainning and testing
 trainning<- as.vector(createDataPartition(subselect_merge_water_viscous$n,times = 1,p = 0.5,list = TRUE)[[1]])
@@ -36,10 +39,8 @@ dnn_viscous           <- train(n ~ ., data = trainning_features, method = "dnn",
 resamps <- resamples(list(rf = rf_viscous, 
                           lm = lm_viscous,
                           rpart=rpart_viscous,
-                          mlp=mlp_viscous,
                           svmLinear=svmLinear_viscous,
-                          knn=knn_viscous,
-                          dnn=dnn_viscous))    
+                          knn=knn_viscous))    
                                                   
 # bwplo               
 png(filename=paste(output_dir,"Plot_bwplot_results.png",sep=""), width = 25, height = 12, res=600, units = "cm")  
@@ -50,17 +51,18 @@ dev.off()
 varImp_rf_viscous    <- varImp(rf_viscous, scale = FALSE)
 varImp_lm_viscous    <- varImp(lm_viscous, scale = FALSE)
 varImp_rpart_viscous <- varImp(rpart_viscous, scale = FALSE)
-varImp_mlp_viscous   <- varImp(mlp_viscous, scale = FALSE)
 varImp_knn_viscous   <- varImp(knn_viscous, scale = FALSE)
-varImp_dnn_viscous   <- varImp(dnn_viscous, scale = FALSE)
+varImp_svm_viscous   <- varImp(svmLinear_viscous, scale = FALSE)
                                                   
-
                                                   
 # Plot variable importance from the regression-like models
-plot_lm_viscous<-plot(varImp_lm_viscous, main = "lm") 
-plot_rf_viscous<-plot(varImp_rf_viscous, main = "rf")
-
+plot_lm_viscous   <-plot(varImp_lm_viscous, main = "lm") 
+plot_rf_viscous   <-plot(varImp_rf_viscous, main = "rf")
+plot_rpart_viscous<-plot(varImp_rf_viscous, main = "rpart")
+plot_knn_viscous  <-plot(varImp_rf_viscous, main = "knn")
+plot_svm_viscous  <-plot(varImp_svm_viscous, main = "svmLinear")
+                                                  
 # bwplot               
-png(filename=paste(output_dir,"Variable_Importance_results.png",sep=""), width = 25, height = 25, res=600, units = "cm")  
-  grid.arrange(plot_lm_viscous,plot_rf_viscous)
+png(filename=paste(output_dir,"Variable_Importance_results.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
+  grid.arrange(plot_lm_viscous,plot_rf_viscous,plot_rpart_viscous,plot_knn_viscous, plot_svm_viscous)
 dev.off()
