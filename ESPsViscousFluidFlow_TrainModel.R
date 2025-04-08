@@ -29,9 +29,8 @@ rf_viscous            <- train(n ~ ., data = trainning_features, method = "rf", 
 lm_viscous            <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)            # linear regresssion                            Ok      
 rpart_viscous         <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)         # Recursive Partitioning and Regression Trees   Ok
 mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)           # multilayer perceptron                         Ok
-rbf_viscous           <- train(n ~ ., data = trainning_features, method = "rbf", trControl = fitControl)           # radial basis function (RBF)                   Ok
-svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)     # 
-knn_viscous           <- train(n ~ ., data = trainning_features, method = "knn", trControl = fitControl)
+svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)     # Support Vector Machines                       Ok
+knn_viscous           <- train(n ~ ., data = trainning_features, method = "knn", trControl = fitControl)           # K-Nearest Neighbors (KNN)                     Ok
 naive_bayes_viscous   <- train(n ~ ., data = trainning_features, method = "naive_bayes", trControl = fitControl)
 dnn_viscous           <- train(n ~ ., data = trainning_features, method = "dnn", trControl = fitControl)
                                                   
