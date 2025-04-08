@@ -117,8 +117,12 @@ colnames(All_viscous)[9]<-"Shaft.Torque"
 All_water$Inlet.Viscosity.mi  <- -1
 All_water$Outlet.Viscosity.mo <- -1
 
+# Calculate water density at inlet temperature
+t = as.numeric(All_water$Inlet.Temperature.T1)
+p = (999.83952 + 16.945176*(t) - 7.9870401*(10^-3)*(t^2) - 46.170461*(10^-6)*(t^3) + 105.56302*(10^-9)*(t^4) - 280.54253 * (10^-12)*(t^5)) / (1 + 16.897850 * (10^-3)*(t))
+
 # Inlet.Density.ρi
-All_water$Inlet.Density.ρi<-1000
+All_water$Inlet.Density.ρi<-p
 
 # Colnames
 common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames(All_water))]
