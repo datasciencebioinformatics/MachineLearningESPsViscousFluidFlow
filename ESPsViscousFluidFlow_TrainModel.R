@@ -53,11 +53,38 @@ varImp_svm_viscous   <- varImp(svmLinear_viscous, scale = FALSE)
 # Plot variable importance from the regression-like models
 plot_lm_viscous   <-plot(varImp_lm_viscous, main = "lm") 
 plot_rf_viscous   <-plot(varImp_rf_viscous, main = "rf")
-plot_rpart_viscous<-plot(varImp_rf_viscous, main = "rpart")
-plot_knn_viscous  <-plot(varImp_rf_viscous, main = "knn")
+plot_rpart_viscous<-plot(varImp_rpart_viscous, main = "rpart")
+plot_knn_viscous  <-plot(varImp_knn_viscous, main = "knn")
 plot_svm_viscous  <-plot(varImp_svm_viscous, main = "svmLinear")
                                                   
 # bwplot               
 png(filename=paste(output_dir,"Variable_Importance_results.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
   grid.arrange(plot_lm_viscous,plot_rf_viscous,plot_rpart_viscous,plot_knn_viscous, plot_svm_viscous)
+dev.off()
+
+#########################################################################################################
+rf_viscous_prediction<-predict(rf_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
+lm_viscous_prediction<-predict(lm_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
+rpart_viscous_prediction<-predict(rpart_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
+knn_viscous_prediction<-predict(knn_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
+svm_viscous_prediction<-predict(svmLinear_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
+
+                                                  
+
+correlation_rf<-cor(testing_features$n,as.vector(rf_viscous_prediction))
+correlation_rpart<-cor(testing_features$n,as.vector(rpart_viscous_prediction))
+correlation_knn<-cor(testing_features$n,as.vector(knn_viscous_prediction))
+correlation_lm<-cor(testing_features$n,as.vector(lm_viscous_prediction))
+correlation_svm<-cor(testing_features$n,as.vector(svm_viscous_prediction))
+
+
+# Store correlation values
+df_correction_values<-data.frame(Method=c("rf","rpart","knn","lm","svm"),Correlation=c(correlation_rf,correlation_rpart,correlation_knn,correlation_lm,correlation_svm))
+
+
+                                                  
+
+# bwplot               
+png(filename=paste(output_dir,"Correlation_results.png",sep=""), width = 15, height = 15, res=600, units = "cm")  
+  ggplot(df_correction_values, aes(x = Method, y = Correlation)) + geom_col(fill = "#0073C2FF") + geom_text(aes(label = round(Correlation,3)), vjust = -0.3) + theme_bw()
 dev.off()
