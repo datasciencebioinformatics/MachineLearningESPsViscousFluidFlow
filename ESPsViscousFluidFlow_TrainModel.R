@@ -47,9 +47,15 @@ png(filename=paste(output_dir,"Plot_bwplot_results.png",sep=""), width = 25, hei
 dev.off()
 #########################################################################################################
 # caclulate variable importance from the regresssion-like models
-varImp_lm_viscous <- varImp(lm_viscous, scale = FALSE)
-varImp_rf_viscous <- varImp(rf_viscous, scale = FALSE)
+varImp_rf_viscous    <- varImp(rf_viscous, scale = FALSE)
+varImp_lm_viscous    <- varImp(lm_viscous, scale = FALSE)
+varImp_rpart_viscous <- varImp(rpart_viscous, scale = FALSE)
+varImp_mlp_viscous   <- varImp(mlp_viscous, scale = FALSE)
+varImp_knn_viscous   <- varImp(knn_viscous, scale = FALSE)
+varImp_dnn_viscous   <- varImp(dnn_viscous, scale = FALSE)
+                                                  
 
+                                                  
 # Plot variable importance from the regression-like models
 plot_lm_viscous<-plot(varImp_lm_viscous, main = "lm") 
 plot_rf_viscous<-plot(varImp_rf_viscous, main = "rf")
