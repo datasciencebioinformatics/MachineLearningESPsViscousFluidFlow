@@ -112,14 +112,16 @@ metada_data<-rbind(metada_data_rpm,metada_data_rads)
 # Rename Shaft.Torque
 colnames(All_viscous)[9]<-"Shaft.Torque"
 
-# Add collumns for viscosities in water. 
-# Star values as -1
-All_water$Inlet.Viscosity.mi  <- -1
-All_water$Outlet.Viscosity.mo <- -1
-
 # Calculate water density at inlet temperature
 t = as.numeric(All_water$Inlet.Temperature.T1)
-p = (999.83952 + 16.945176*(t) - 7.9870401*(10^-3)*(t^2) - 46.170461*(10^-6)*(t^3) + 105.56302*(10^-9)*(t^4) - 280.54253 * (10^-12)*(t^5)) / (1 + 16.897850 * (10^-3)*(t))
+# p = (999.83952 + 16.945176*(t) - 7.9870401*(10^-3)*(t^2) - 46.170461*(10^-6)*(t^3) + 105.56302*(10^-9)*(t^4) - 280.54253 * (10^-12)*(t^5)) / (1 + 16.897850 * (10^-3)*(t))
+p  = dens(T = as.numeric(All_water$Inlet.Temperature.T1), units = 'SI')
+mu = dvisc(T = as.numeric(All_water$Inlet.Temperature.T1), units = 'SI')*1000
+
+# Add collumns for viscosities in water. 
+# Star values as -1
+All_water$Inlet.Viscosity.mi  <- mu
+All_water$Outlet.Viscosity.mo <- mu
 
 # Inlet.Density.ρi
 All_water$Inlet.Density.ρi<-p
@@ -130,3 +132,8 @@ common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames
 # Merge tables
 merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
 ##################################################################################################
+# Remove water samples
+merge_water_viscous<-merge_water_viscous[merge_water_viscous$fluid != "water",]
+##################################################################################################
+
+
