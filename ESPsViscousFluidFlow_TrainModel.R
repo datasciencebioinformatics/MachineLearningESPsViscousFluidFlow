@@ -25,8 +25,20 @@ testing_features  <-subselect_merge_water_viscous[testing,]
 fitControl <- trainControl(number = 3)
 
 # Train regression-like models
-rf_viscous    <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
-lm_viscous    <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
+rf_viscous         <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
+lm_viscous         <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
+rpart_viscous      <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)
+denfis_viscous     <- train(n ~ ., data = trainning_features, method = "DENFIS", trControl = fitControl)
+
+mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)
+rbf_viscous           <- train(n ~ ., data = trainning_features, method = "rbf", trControl = fitControl)
+svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)
+knn_viscous           <- train(n ~ ., data = trainning_features, method = "knn", trControl = fitControl)
+naive_bayes_viscous   <- train(n ~ ., data = trainning_features, method = "naive_bayes", trControl = fitControl)
+dnn_viscous           <- train(n ~ ., data = trainning_features, method = "dnn", trControl = fitControl)
+                                                  
+
+                                                  
 #########################################################################################################
 resamps <- resamples(list(rf_viscous = rf_viscous, 
                           lm_viscous = lm_viscous))    
