@@ -31,14 +31,15 @@ rpart_viscous         <- train(n ~ ., data = trainning_features, method = "rpart
 mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)           # multilayer perceptron                         Ok
 svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)     # Support Vector Machines                       Ok
 knn_viscous           <- train(n ~ ., data = trainning_features, method = "knn", trControl = fitControl)           # K-Nearest Neighbors (KNN)                     Ok
-naive_bayes_viscous   <- train(n ~ ., data = trainning_features, method = "naive_bayes", trControl = fitControl)
-dnn_viscous           <- train(n ~ ., data = trainning_features, method = "dnn", trControl = fitControl)
-                                                  
-
-                                                  
+dnn_viscous           <- train(n ~ ., data = trainning_features, method = "dnn", trControl = fitControl)           # AutoEncoder Deep Neural Network               Ok
 #########################################################################################################
-resamps <- resamples(list(rf_viscous = rf_viscous, 
-                          lm_viscous = lm_viscous))    
+resamps <- resamples(list(rf = rf_viscous, 
+                          lm = lm_viscous,
+                          rpart=rpart_viscous,
+                          mlp=mlp_viscous,
+                          svmLinear=svmLinear_viscous,
+                          knn=knn_viscous,
+                          dnn=dnn_viscous))    
                                                   
 # bwplo               
 png(filename=paste(output_dir,"Plot_bwplot_results.png",sep=""), width = 25, height = 12, res=600, units = "cm")  
