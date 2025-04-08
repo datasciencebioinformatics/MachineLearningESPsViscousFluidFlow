@@ -25,11 +25,9 @@ testing_features  <-subselect_merge_water_viscous[testing,]
 fitControl <- trainControl(number = 3)
 
 # Train regression-like models
-rf_viscous         <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
-lm_viscous         <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
-rpart_viscous      <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)
-denfis_viscous     <- train(n ~ ., data = trainning_features, method = "DENFIS", trControl = fitControl)
-
+rf_viscous            <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)
+lm_viscous            <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)
+rpart_viscous         <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)
 mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)
 rbf_viscous           <- train(n ~ ., data = trainning_features, method = "rbf", trControl = fitControl)
 svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)
