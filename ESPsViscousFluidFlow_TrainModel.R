@@ -26,9 +26,9 @@ fitControl <- trainControl(number = 3)
 
 # Train regression-like models
 rf_viscous            <- train(n ~ ., data = trainning_features, method = "rf", trControl = fitControl)            # randomForest                                  Ok
-lm_viscous            <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)            # linear regresssion                            ??      
-rpart_viscous         <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)         # Recursive Partitioning and Regression Trees   ??
-mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)           # multilayer perceptron                         ??
+lm_viscous            <- train(n ~ ., data = trainning_features, method = "lm", trControl = fitControl)            # linear regresssion                            Ok      
+rpart_viscous         <- train(n ~ ., data = trainning_features, method = "rpart", trControl = fitControl)         # Recursive Partitioning and Regression Trees   Ok
+mlp_viscous           <- train(n ~ ., data = trainning_features, method = "mlp", trControl = fitControl)           # multilayer perceptron                         Ok
 rbf_viscous           <- train(n ~ ., data = trainning_features, method = "rbf", trControl = fitControl)
 svmLinear_viscous     <- train(n ~ ., data = trainning_features, method = "svmLinear", trControl = fitControl)
 knn_viscous           <- train(n ~ ., data = trainning_features, method = "knn", trControl = fitControl)
