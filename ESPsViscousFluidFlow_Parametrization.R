@@ -51,9 +51,9 @@ for (measure in rownames(merge_water_viscous))
   p  <-as.numeric(merge_water_viscous[measure,"Inlet.Density.ρi"])
 
   # The Flow Rate, Q 
-  # Q = volumetric flow rate, L3, t–1, m3/h
+  # Q = volumetric flow rate, L3, t–1, m3/s
   # Unit checked m3/h
-  merge_water_viscous[measure,"Q"]<-as.numeric(merge_water_viscous[measure,"Flow.rate"])/(p) # kg/h converted to m3/h
+  merge_water_viscous[measure,"Q"]<-as.numeric(merge_water_viscous[measure,"Flow.rate"])/(p*3600) # kg/h converted to m3/s
 
   # Head pump
   # H = head, L, m
