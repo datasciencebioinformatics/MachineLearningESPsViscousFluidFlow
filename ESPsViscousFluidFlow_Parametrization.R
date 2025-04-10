@@ -77,7 +77,7 @@ for (measure in rownames(merge_water_viscous))
   # p    : The density of the fluid in kilograms per cubic meter (kg/m3) 
   # g    : The acceleration due to gravity (9.81m/s2) 
   # H    : The differential head in meters (m)
-
+  
   # useful power Ph
   merge_water_viscous[measure,"P_h"]<- (p*g*merge_water_viscous[measure,"H"]*merge_water_viscous[measure,"Q"])
 
