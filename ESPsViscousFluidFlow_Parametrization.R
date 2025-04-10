@@ -59,9 +59,9 @@ for (measure in rownames(merge_water_viscous))
   # H = head, L, m
   merge_water_viscous[measure,"H"]<-((P2-P1)/(p*g))*(1/N) 
 
-  # The rotational speed w in rpm
+  # The rotational speed w in rads/s
   # unit checked RPM
-  w=as.numeric(merge_water_viscous[measure,"RPM"])*0.10472
+  w=as.numeric(merge_water_viscous[measure,"RPM"])
   
   # Net.Shaft.Torque
   # T = shaft torque, mL2,t–2, N·m
