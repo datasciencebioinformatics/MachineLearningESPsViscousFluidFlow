@@ -1,6 +1,10 @@
 #########################################################################################################
 # Store nome of analyzed variables
 # Flow rate	Inlet Temperature T1 	Inlet Temperature T2 			Inlet Pressure P1	Outlet Pressure P2	Shaft Torque
+# TO DO : 
+# 1) remove density from the list
+# 2) use all inlet temperature, and all outlet temperature
+# 3) use all inlet pressure, and all outlet pressure
 variables<-variables<-c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi","n")
 
 # Sub-select collumns
@@ -80,10 +84,7 @@ correlation_svm<-cor(testing_features$n,as.vector(svm_viscous_prediction))
 
 # Store correlation values
 df_correction_values<-data.frame(Method=c("rf","rpart","knn","lm","svm"),Correlation=c(correlation_rf,correlation_rpart,correlation_knn,correlation_lm,correlation_svm))
-
-
-                                                  
-
+                                                
 # bwplot               
 png(filename=paste(output_dir,"Correlation_results.png",sep=""), width = 15, height = 15, res=600, units = "cm")  
   ggplot(df_correction_values, aes(x = Method, y = Correlation)) + geom_col(fill = "#0073C2FF") + geom_text(aes(label = round(Correlation,3)), vjust = -0.3) + theme_bw()
