@@ -133,7 +133,6 @@ common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames
 merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
 ##################################################################################################
 # Remove water samples
-merge_water_viscous<-na.omit(merge_water_viscous[merge_water_viscous$fluid != "water",])
+merge_water_viscous<-All_viscous
 ##################################################################################################
-
 
