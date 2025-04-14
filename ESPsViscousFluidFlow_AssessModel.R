@@ -33,11 +33,11 @@ fitControl <- trainControl(number = 3)
 # 1) remove density from the list of varibales                      - trainning_features
 # 2) add interactions : Inlet.Temperature.T1* Inlet.Pressure.T1     - add in the model
 # 3) add interactions : Outle.Temperature.T1* Outlet.Pressure.T1    - add in the model                                                  
-rf_viscous            <- train(n ~ . + Average.Inlet.Temp.Tm.i*Inlet.Pressure.P1 + Average.Outlet.Temp.Tm.o*Outlet.Pressure.P2, data = trainning_features, method = "rf", trControl = fitControl)            # randomForest                                  Ok
-lm_viscous            <- train(n ~ . + Average.Inlet.Temp.Tm.i*Inlet.Pressure.P1 + Average.Outlet.Temp.Tm.o*Outlet.Pressure.P2, data = trainning_features, method = "lm", trControl = fitControl)            # linear regresssion                            Ok      
-rpart_viscous         <- train(n ~ . + Average.Inlet.Temp.Tm.i*Inlet.Pressure.P1 + Average.Outlet.Temp.Tm.o*Outlet.Pressure.P2, data = trainning_features, method = "rpart", trControl = fitControl)         # Recursive Partitioning and Regression Trees   Ok
-svmLinear_viscous     <- train(n ~ . + Average.Inlet.Temp.Tm.i*Inlet.Pressure.P1 + Average.Outlet.Temp.Tm.o*Outlet.Pressure.P2, data = trainning_features, method = "svmLinear", trControl = fitControl)     # Support Vector Machines                       Ok
-knn_viscous           <- train(n ~ . + Average.Inlet.Temp.Tm.i*Inlet.Pressure.P1 + Average.Outlet.Temp.Tm.o*Outlet.Pressure.P2, data = trainning_features, method = "knn", trControl = fitControl)           # K-Nearest Neighbors (KNN)                     Ok
+rf_viscous            <- train(n ~ . , data = trainning_features, method = "rf", trControl = fitControl)            # randomForest                                  Ok
+lm_viscous            <- train(n ~ . , data = trainning_features, method = "lm", trControl = fitControl)            # linear regresssion                            Ok      
+rpart_viscous         <- train(n ~ . , data = trainning_features, method = "rpart", trControl = fitControl)         # Recursive Partitioning and Regression Trees   Ok
+svmLinear_viscous     <- train(n ~ . , data = trainning_features, method = "svmLinear", trControl = fitControl)     # Support Vector Machines                       Ok
+knn_viscous           <- train(n ~ . , data = trainning_features, method = "knn", trControl = fitControl)           # K-Nearest Neighbors (KNN)                     Ok
 #########################################################################################################
 resamps <- resamples(list(rf = rf_viscous, 
                           lm = lm_viscous,
