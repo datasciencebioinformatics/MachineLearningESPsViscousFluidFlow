@@ -26,5 +26,8 @@ source(paste(project_folder,"ESPsViscousFluidFlow_BEP_Caclulation.R",sep=""))
 #### 7) Load ESP dataset from files
 source(paste(project_folder,"ESPsViscousFluidFlow_Exploratory_ESP_dataset.R",sep=""))
 
-#### 8) Train regression-like models
+#### 8) Assess regression-like models
+source(paste(project_folder,"ESPsViscousFluidFlow_AssessModel.R",sep=""))
+
+#### 9) Train regression-like models
 source(paste(project_folder,"ESPsViscousFluidFlow_TrainModel.R",sep=""))
