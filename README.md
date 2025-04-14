@@ -3,7 +3,7 @@
 project_folder="/home/felipe/Documents/MachineLearningESPsViscousFluidFlow/"
 
 #### b) Or in Windows
-project_folder="C:/Users/Valter/Documents/GitHub/MachineLearningESPsViscousFluidFlow/"
+project_folder="C:/Users/User/Documents/GitHub/MachineLearningESPsViscousFluidFlow/"
 
 #### c) set outputfolder
 output_dir=project_folder
