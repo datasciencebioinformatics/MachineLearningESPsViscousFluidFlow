@@ -2,9 +2,6 @@
 # Store nome of analyzed variables
 # Flow rate	Inlet Temperature T1 	Inlet Temperature T2 			Inlet Pressure P1	Outlet Pressure P2	Shaft Torque
 # TO DO : 
-# 1) remove density from the list
-# 2) use all inlet temperature, and all outlet temperature
-# 3) use all inlet pressure, and all outlet pressure
 variables<-variables<-c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi","n")
 
 # Sub-select collumns
