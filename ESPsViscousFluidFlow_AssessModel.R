@@ -71,13 +71,11 @@ png(filename=paste(output_dir,"Variable_Importance_results_interactions.png",sep
 dev.off()
 
 #########################################################################################################
-rf_viscous_prediction<-predict(rf_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
-lm_viscous_prediction<-predict(lm_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
-rpart_viscous_prediction<-predict(rpart_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
-knn_viscous_prediction<-predict(knn_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
-svm_viscous_prediction<-predict(svmLinear_viscous , testing_features[,c("Q","Inlet.Temperature.T1","Inlet.Temperature.T2","Inlet.Pressure.P1","Outlet.Pressure.P2","RPM","Shaft.Torque","Inlet.Density.ρi")])
-
-                                                  
+rf_viscous_prediction<-predict(rf_viscous , testing_features[,c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")])
+lm_viscous_prediction<-predict(lm_viscous , testing_features[,c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")])
+rpart_viscous_prediction<-predict(rpart_viscous , testing_features[,c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")])
+knn_viscous_prediction<-predict(knn_viscous , testing_features[,c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")])
+svm_viscous_prediction<-predict(svmLinear_viscous , testing_features[,c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM")])
 
 correlation_rf<-cor(testing_features$n,as.vector(rf_viscous_prediction))
 correlation_rpart<-cor(testing_features$n,as.vector(rpart_viscous_prediction))
