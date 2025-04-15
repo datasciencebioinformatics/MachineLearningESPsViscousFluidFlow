@@ -7,13 +7,34 @@
 # T    : Net.Shaft.Torque                                                     OK
 # N    : Number of stage                                                      OK
 ################################################################################################################
-# Viscous samples
-# All_viscous
+df_test_matrix$BEP_Q_corresponde<--1
 
-# Water samples
-# All_water
+# for each configurartion of the test matris
+for (condition_id in rownames(df_test_matrix))
+{
+  # Take the value of the BEP
+  BEP_Q<-df_test_matrix[condition_id,"BEP"]
 
-# Make the colnames correspondents
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-merge_water_viscous[which(merge_water_viscous$fluid  == df_test_matrix[condition_id,"fluid"]),]
+
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-condition_water_viscous[which(condition_water_viscous$RPM  == df_test_matrix[condition_id,"RPM"]),]
+
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-condition_water_viscous[which(condition_water_viscous$Inlet.Viscosity  == df_test_matrix[condition_id,"viscosity"]),]
+
+  # If condition_water_viscous not empty
+  if(dim(condition_water_viscous)[1]>=1)
+  {
+    # The heads and efficiencies corresponding to these flow rates define the other correction facter
+    # Take all the infofmation corresponding the BEP_water_Q and BEP_viscous_Q
+    BEP_Q_correspondence<-sort((condition_water_viscous)$Q)[match.closest(BEP_Q,  sort((condition_water_viscous)$Q))]
+
+    # Update the BEP_Q_correspondence
+    df_test_matrix[condition_id,"BEP_Q_corresponde"]<-BEP_Q_correspondence
+  }
+}
 ################################################################################################################
 # For each viscous category o of the test matrix, calculate the BEP_water_Q and BEP_viscous_Q 
 # For each test condition, the head, BHP and efficiency are already calculate.
@@ -21,19 +42,6 @@
 ################################################################################################################
 # First, take the BEP in water and in Viscous
 # Q (head) : (Q*n in water) AND (Q*n in viscous)
-
-# Fit a curve for Qxn
-Q_water_fit   <- lm(ESP_water$Q ~ poly(ESP_water$n, 5, raw=TRUE))
-Q_viscous_fit <- lm(ESP_fluid$Q ~ poly(ESP_fluid$n, 5, raw=TRUE))
-
-# Find maximum value
-BEP_water_Q<-max(Q_water_fit$fitted.values)
-BEP_viscous_Q<-max(Q_viscous_fit$fitted.values)
-################################################################################################################
-# The heads and efficiencies corresponding to these flow rates define the other correction facter
-# Take all the infofmation corresponding the BEP_water_Q and BEP_viscous_Q
-ESP_water_BEP_Q<-ESP_water[ESP_water$Q == sort((ESP_water)$Q)[match.closest(BEP_water_Q,  sort((ESP_water)$Q))],]
-ESP_fluid_BEP_Q<-ESP_fluid[ESP_fluid$Q == sort((ESP_fluid)$Q)[match.closest(BEP_viscous_Q,  sort((ESP_fluid)$Q))],]
   
 ######################################################################################3
 # The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
