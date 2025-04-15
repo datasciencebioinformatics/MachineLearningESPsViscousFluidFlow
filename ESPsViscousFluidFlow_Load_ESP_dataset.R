@@ -157,5 +157,4 @@ merge_water_viscous$Inlet.Density.ρi<-as.numeric(merge_water_viscous$Inlet.Dens
 merge_water_viscous$Inlet.Viscosity.mi<-as.numeric(merge_water_viscous$Inlet.Viscosity.mi)
 merge_water_viscous$Outlet.Viscosity.mo<-as.numeric(merge_water_viscous$Outlet.Viscosity.mo)
 merge_water_viscous$replicate<-as.numeric(merge_water_viscous$replicate)
-merge_water_viscous$RPM<-as.numeric(merge_water_viscous$RPM)
 
