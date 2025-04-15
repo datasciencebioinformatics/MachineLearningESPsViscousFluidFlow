@@ -2,7 +2,7 @@
 # To Do:
 # reproduce Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
 # Subset ESP_P47 
-ESP_P47_water<-merge_water_viscous[merge_water_viscous$RPM=="3500" & merge_water_viscous$equip=="P47",]
+ESP_P47_water<-merge_water_viscous[merge_water_viscous$RPM=="3500" & merge_water_viscous$equip=="P47" & merge_water_viscous$fluid!="water" ,]
 ################################################################################################################
 # Fig. 7—ESP P47 performance pumping viscous fluid at 3,500 rev/min.
 # Melt tabele
