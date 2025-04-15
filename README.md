@@ -26,8 +26,5 @@ source(paste(project_folder,"ESPsViscousFluidFlow_Exploratory_ESP_dataset.R",sep
 #### 7) Assess regression-like models
 source(paste(project_folder,"ESPsViscousFluidFlow_AssessModel.R",sep=""))
 
-# TO DO: 
-- Check Implementation till number 7
-- Start implementation of BEP and correction factor 
 #### 8) Calculate the BEP and correction Factors
 source(paste(project_folder,"ESPsViscousFluidFlow_BEP_Caclulation.R",sep=""))
