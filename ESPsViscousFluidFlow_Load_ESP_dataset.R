@@ -127,8 +127,9 @@ All_water$Outlet.Viscosity.mo <- NA
 # Inlet.Density.ρi
 All_water$Inlet.Density.ρi<-p
 
-Average.Inlet.Temp.Tm.i
-Average.Outlet.Temp.Tm.o
+# Set Average tempaerature to NA
+All_water$Average.Inlet.Temp.Tm.i   <- NA
+All_water$Average.Outlet.Temp.Tm.o  <- NA
 
 # Colnames
 common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames(All_water))]
@@ -136,8 +137,8 @@ common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames
 #########################################################################################################
 # Merge tables
 merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varibles])
-##################################################################################################
-# Remove water samples
-merge_water_viscous<-All_viscous
-##################################################################################################
+########################################################################################################
+# Remove water samples from Water samples with necessary
+# merge_water_viscous<-All_viscous
+########################################################################################################
 
