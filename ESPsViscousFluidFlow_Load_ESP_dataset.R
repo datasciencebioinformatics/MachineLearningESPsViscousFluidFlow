@@ -125,7 +125,8 @@ All_water$Inlet.Viscosity.mi  <- mi
 All_water$Outlet.Viscosity.mo <- -1
 
 # Inlet.Density.ρi
-All_water$Inlet.Density.ρi<-p
+All_water$Inlet.Density.ρi<-p$rho
+
 
 # Set Average tempaerature to NA
 All_water$Average.Inlet.Temp.Tm.i   <- -1
@@ -141,3 +142,20 @@ merge_water_viscous<-rbind(All_water[,common_varibles],All_viscous[,common_varib
 # Remove water samples from Water samples with necessary
 # merge_water_viscous<-All_viscous
 ########################################################################################################
+merge_water_viscous$id<-as.numeric(merge_water_viscous$id)                       
+merge_water_viscous$Flow.rate<-as.numeric(merge_water_viscous$Flow.rate)
+merge_water_viscous$Inlet.Temperature.T1<-as.numeric(merge_water_viscous$Inlet.Temperature.T1)
+merge_water_viscous$Inlet.Temperature.T2<-as.numeric(merge_water_viscous$Inlet.Temperature.T2)
+merge_water_viscous$Outlet.Temperature.T3<-as.numeric(merge_water_viscous$Outlet.Temperature.T3)  
+merge_water_viscous$Outlet.Temperature.T4<-as.numeric(merge_water_viscous$Outlet.Temperature.T4)
+merge_water_viscous$Inlet.Pressure.P1<-as.numeric(merge_water_viscous$Inlet.Pressure.P1)
+merge_water_viscous$Outlet.Pressure.P2<-as.numeric(merge_water_viscous$Outlet.Pressure.P2)
+merge_water_viscous$Shaft.Torque<-as.numeric(merge_water_viscous$Shaft.Torque)
+merge_water_viscous$Average.Inlet.Temp.Tm.i<-as.numeric(merge_water_viscous$Average.Inlet.Temp.Tm.i)
+merge_water_viscous$Average.Outlet.Temp.Tm.o<-as.numeric(merge_water_viscous$Average.Outlet.Temp.Tm.o)
+merge_water_viscous$Inlet.Density.ρi<-as.numeric(merge_water_viscous$Inlet.Density.ρi)
+merge_water_viscous$Inlet.Viscosity.mi<-as.numeric(merge_water_viscous$Inlet.Viscosity.mi)
+merge_water_viscous$Outlet.Viscosity.mo<-as.numeric(merge_water_viscous$Outlet.Viscosity.mo)
+merge_water_viscous$replicate<-as.numeric(merge_water_viscous$replicate)
+merge_water_viscous$RPM<-as.numeric(merge_water_viscous$RPM)
+
