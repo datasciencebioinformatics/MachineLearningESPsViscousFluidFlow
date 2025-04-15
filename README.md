@@ -26,5 +26,9 @@ source(paste(project_folder,"ESPsViscousFluidFlow_Exploratory_ESP_dataset.R",sep
 #### 7) Assess regression-like models
 source(paste(project_folder,"ESPsViscousFluidFlow_AssessModel.R",sep=""))
 
+#### TO DO :
+#### The correction factors will be calculated for every combination of viscosity-equipment (fluid)/ equipment (water)
+#### In the case of water, there is only on viscosity group. Therefore I can only calculate the values considering water with only one viscosity
+
 #### 8) Calculate the BEP and correction Factors
 source(paste(project_folder,"ESPsViscousFluidFlow_BEP_Caclulation.R",sep=""))
