@@ -7,7 +7,11 @@
 # T    : Net.Shaft.Torque                                                     OK
 # N    : Number of stage                                                      OK
 ################################################################################################################
-df_test_matrix$BEP_Q_corresponde<--1
+df_test_matrix$BEP_Q_corresponde  <--1
+df_test_matrix$H_at_BEP           <--1
+df_test_matrix$Q_at_BEP           <--1
+df_test_matrix$N_at_BEP           <--1
+df_test_matrix$BHP_at_BEP         <--1
 
 # for each configurartion of the test matris
 for (condition_id in rownames(df_test_matrix))
@@ -31,17 +35,19 @@ for (condition_id in rownames(df_test_matrix))
     # Take all the infofmation corresponding the BEP_water_Q and BEP_viscous_Q
     BEP_Q_correspondence<-sort((condition_water_viscous)$Q)[match.closest(BEP_Q,  sort((condition_water_viscous)$Q))]
 
-    # Update the BEP_Q_correspondence
-    df_test_matrix[condition_id,"BEP_Q_corresponde"]<-BEP_Q_correspondence
+    # Update the BEP_Q_correspondence H_at_BEP Q_at_BEP N_at_BEP BHP_at_BEP
+    # In case the efficiency curve has more than one peak, take the value in the first output
+    df_test_matrix[condition_id,"H_at_BEP"]         <-condition_water_viscous[which(condition_water_viscous$Q == BEP_Q_correspondence),"H"][1]
+    df_test_matrix[condition_id,"Q_at_BEP"]         <-condition_water_viscous[which(condition_water_viscous$Q == BEP_Q_correspondence),"Q"][1]
+    df_test_matrix[condition_id,"N_at_BEP"]         <-condition_water_viscous[which(condition_water_viscous$Q == BEP_Q_correspondence),"n"][1]
+    df_test_matrix[condition_id,"BHP_at_BEP"]       <-condition_water_viscous[which(condition_water_viscous$Q == BEP_Q_correspondence),"BHP"][1]    
   }
 }
 ################################################################################################################
-# For each viscous category o of the test matrix, calculate the BEP_water_Q and BEP_viscous_Q 
-# For each test condition, the head, BHP and efficiency are already calculate.
-# TO DO : use the values at the calculated BEP_water_Q and BEP_viscous_Q
+# For each viscous category, split the data in the three possible fluids
+# In case of water, there is only one viscous categorie
 ################################################################################################################
-# First, take the BEP in water and in Viscous
-# Q (head) : (Q*n in water) AND (Q*n in viscous)
+
   
 ######################################################################################3
 # The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
