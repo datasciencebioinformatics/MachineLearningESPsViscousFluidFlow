@@ -5,13 +5,13 @@
 # 1) use all inlet temperature, and all outlet temperature
 # 2) use all inlet pressure, and all outlet pressure
 # Common variables water and fluid
-variables<-variables<-c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o",  "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM","n")
+variables<-variables<-c("Q","Average.Inlet.Temp.Tm.i", "Average.Outlet.Temp.Tm.o" , "Inlet.Pressure.P1", "Outlet.Pressure.P2", "Shaft.Torque", "RPM","n")
 
 # Sub-select collumns
-subselect_merge_water_viscous<-na.omit(merge_water_viscous[,variables])
+subselect_merge_water_viscous<-na.omit(merge_water_viscous[merge_water_viscous$fluid!="water",variables])
 
 # Converto numeric
-subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))                                          
+subselect_merge_water_viscous <- data.frame(apply(subselect_merge_water_viscous, 2, function(x) as.numeric(as.character(x))))                                                     
 #########################################################################################################
 # Split into trainning and testing
 trainning<- as.vector(createDataPartition(subselect_merge_water_viscous$n,times = 1,p = 0.5,list = TRUE)[[1]])
