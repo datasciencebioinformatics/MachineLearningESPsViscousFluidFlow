@@ -122,14 +122,14 @@ mi = dvisc(T = as.numeric(All_water$Inlet.Temperature.T1), units = 'SI')*1000
 # Add collumns for viscosities in water. 
 # Star values as -1
 All_water$Inlet.Viscosity.mi  <- mi
-All_water$Outlet.Viscosity.mo <- NA
+All_water$Outlet.Viscosity.mo <- -1
 
 # Inlet.Density.ρi
 All_water$Inlet.Density.ρi<-p
 
 # Set Average tempaerature to NA
-All_water$Average.Inlet.Temp.Tm.i   <- NA
-All_water$Average.Outlet.Temp.Tm.o  <- NA
+All_water$Average.Inlet.Temp.Tm.i   <- -1
+All_water$Average.Outlet.Temp.Tm.o  <- -1
 
 # Colnames
 common_varibles<-colnames(All_viscous)[which(colnames(All_viscous) %in% colnames(All_water))]
