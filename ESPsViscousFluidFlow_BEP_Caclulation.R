@@ -17,8 +17,29 @@ df_test_matrix$BEP<-NA
 # For each combination of test
 for (condition_id in rownames(df_test_matrix))
 {
+  # Take the RPM value
+  RPM<-df_test_matrix[condition_id,"RPM"]
+  
+  # Take the equip value
+  equip<-df_test_matrix[condition_id,"equip"]
+
+  # Take the viscosity value
+  viscosity<-df_test_matrix[condition_id,"viscosity"]
+
+  # Take the fluid value
+  fluid<-df_test_matrix[condition_id,"fluid"]
+
   # Subset data from specific condition of test matrix
-  condition_water_viscous<-merge_water_viscous[which(as.numeric(merge_water_viscous$RPM) == df_test_matrix[condition_id,"RPM"] & merge_water_viscous$equip == df_test_matrix[condition_id,"equip"]  & as.numeric(df_test_matrix[condition_id,"viscosity"]) == merge_water_viscous$Inlet.Viscosity  & merge_water_viscous$fluid == df_test_matrix[condition_id,"fluid"]),]
+  condition_water_viscous<-merge_water_viscous[as.numeric(merge_water_viscous$RPM)==RPM,]
+
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-condition_water_viscous[condition_water_viscous$equip==equip,]
+
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-condition_water_viscous[condition_water_viscous$Inlet.Viscosity==viscosity,]
+
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-na.omit(condition_water_viscous[condition_water_viscous$fluid==fluid,])
 
   # If condition_water_viscous not empty
   if(dim(condition_water_viscous)[1]>=1)
