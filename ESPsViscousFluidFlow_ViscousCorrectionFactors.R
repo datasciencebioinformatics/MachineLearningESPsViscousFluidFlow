@@ -58,9 +58,12 @@ for (condition_id in rownames(df_test_matrix))
     df_test_matrix[condition_id,"BEP_Q_fluid"]         <-BEP_Q_fluid
     df_test_matrix[condition_id,"BEP_Q_water"]         <-BEP_Q_water
   }
-
-  
 }
+##################################################################################################################
+# TO DO:
+# For each test condition, the take the the H, Q and n and BEP for viscous and water
+# using BEP_Q_fluid and BEP_Q_water
+# The loop above can be repeated.
 ##################################################################################################################
 # add values of H, Q, n at BEP
 # for viscous..
@@ -77,57 +80,9 @@ df_test_matrix$BHP_at_BEP_water         <--1
 # for each configurartion of the test matrix 
 for (condition_id in rownames(df_test_matrix))
 {
-  # Take the RPM value
-  RPM<-df_test_matrix[condition_id,"RPM"]
-  
-  # Take the equip value
-  equip<-df_test_matrix[condition_id,"equip"]
-  
-  # Take the viscosity value
-  viscosity<-df_test_matrix[condition_id,"viscosity"]
-  
-  # Take the fluid value
-  fluid<-df_test_matrix[condition_id,"fluid"]
-
-  # Take the value of BEP at viscous fluids
-  BEP       <- df_test_matrix[condition_id,"BEP"]
-
-  # Take the value of BEP at viscous fluids
-  BEP_water <- df_test_matrix[condition_id,"BEP_water"]
-
-  # First, take the values for viscous fluids
-  # Subset data from specific condition of test matrix
-  condition_viscous<-merge_water_viscous[as.numeric(merge_water_viscous$RPM)==RPM,]
-  
-  # Subset data from specific condition of test matrix
-  condition_viscous<-condition_viscous[condition_viscous$equip==equip,]
-   
-  # Subset data from specific condition of test matrix
-  condition_viscous<-na.omit(condition_viscous[condition_viscous$fluid==fluid,])
-
-  # Subset data from specific condition of test matrix
-  condition_viscous<-condition_viscous[condition_viscous$Inlet.Viscosity==viscosity,]
-
-  # Subset data from specific condition of test matrix
-  condition_viscous<-condition_viscous[condition_viscous$Q==BEP,]
-
-  
-
-  # Second, take the values for water
-  # and save in a data.frame
-  condition_water<-condition_water_viscous[condition_water_viscous$fluid=="water",]
-
-  # Subset data from specific condition of test matrix
-  condition_water<-condition_water[as.numeric(condition_water$RPM)==RPM,]
-  
-  # Subset data from specific condition of test matrix
-  condition_water<-condition_water[condition_water$equip==equip,]
 
 }
 
-    df_test_matrix[condition_id,"Q_at_BEP"]         <-condition_water_viscous[which(condition_water_viscous$Q == BEP_water),"Q"][1]
-    df_test_matrix[condition_id,"N_at_BEP"]         <-condition_water_viscous[which(condition_water_viscous$Q == BEP_water),"n"][1]
-    df_test_matrix[condition_id,"BHP_at_BEP"]       <-condition_water_viscous[which(condition_water_viscous$Q == BEP_water),"BHP"][1]    
 ################################################################################################################
 # For each viscous category, split the data in the three possible fluids
 # In case of water, there is only one viscous categorie
