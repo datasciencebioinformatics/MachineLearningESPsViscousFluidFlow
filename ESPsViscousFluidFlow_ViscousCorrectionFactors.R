@@ -7,7 +7,6 @@
 # T    : Net.Shaft.Torque                                                     OK
 # N    : Number of stage                                                      OK
 ################################################################################################################
-df_test_matrix$BEP_Q_corresponde  <--1
 df_test_matrix$H_at_BEP           <--1
 df_test_matrix$Q_at_BEP           <--1
 df_test_matrix$N_at_BEP           <--1
@@ -47,8 +46,21 @@ for (condition_id in rownames(df_test_matrix))
 # For each viscous category, split the data in the three possible fluids
 # In case of water, there is only one viscous categorie
 ################################################################################################################
+# For water viscosity is alway zero
+# Homologous conditions will be set among equipment and RPM
+homologous_conditions<-unique(df_test_matrix_water[,c("RPM","equip")])
 
-  
+# Take only the water samples, glycerin and diluted glycering.
+# each in one vector
+df_test_matrix_water          <-df_test_matrix[df_test_matrix$fluid=="water",]
+df_test_matrix_DilutedGlycerin<-df_test_matrix[df_test_matrix$fluid=="Diluted Glycerin",]
+df_test_matrix_Glycerin       <-df_test_matrix[df_test_matrix$fluid=="Glycerin",]
+
+# Add collumns for each correction factor
+df_test_matrix$C_Q<-0 # Correction factor for flow rate Q
+df_test_matrix$C_n<-0 # Correction factor for flow rate n
+df_test_matrix$C_H<-0 # Correction factor for flow rate H 
+
 ######################################################################################3
 # The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
 # therefore, the BEP_water_Q is analogous BEP_water_Q.
