@@ -80,7 +80,60 @@ df_test_matrix$BHP_at_BEP_water         <--1
 # for each configurartion of the test matrix 
 for (condition_id in rownames(df_test_matrix))
 {
+  # Take the value of the BEP
+  BEP_Q_fluid<-df_test_matrix[condition_id,"BEP_Q_fluid"]
+  BEP_Q_water<-df_test_matrix[condition_id,"BEP_Q_water"]         
 
+  # Take the RPM value
+  RPM<-df_test_matrix[condition_id,"RPM"]
+  
+  # Take the equip value
+  equip<-df_test_matrix[condition_id,"equip"]
+  
+  # Take the viscosity value
+  viscosity<-df_test_matrix[condition_id,"viscosity"]
+  
+  # Take the fluid value
+  fluid<-df_test_matrix[condition_id,"fluid"]
+  
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-merge_water_viscous[as.numeric(merge_water_viscous$RPM)==RPM,]
+  
+  # Subset data from specific condition of test matrix
+  condition_water_viscous<-condition_water_viscous[condition_water_viscous$equip==equip,]
+  
+  # Subset data from specific condition of test matrix
+  condition_viscous<-condition_water_viscous[condition_water_viscous$Inlet.Viscosity==viscosity,]
+  
+  # Subset data from specific condition of test matrix
+  condition_viscous<-na.omit(condition_viscous[condition_viscous$fluid==fluid,])
+  
+  # Take the data for water
+  condition_water<-condition_water_viscous[condition_water_viscous$fluid=="water",]
+  
+  # If condition_water_viscous not empty
+  if(dim(condition_viscous)[1]>=1)
+  {
+    # Take the metrics in fluids
+    n_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"n"]
+    H_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"H"]
+    BHP_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"BHP"]
+
+    # Take the metrics in water
+    n_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"n"]
+    H_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"H"]
+    BHP_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"BHP"]
+
+    # Store in results matrix - fluids
+    df_test_matrix[condition_id,"H_at_BEP_viscous"]<-n_viscous_at_BEP
+    df_test_matrix[condition_id,"n_viscous_at_BEP"]<-H_viscous_at_BEP
+    df_test_matrix[condition_id,"BHP_viscous_at_BEP"]<-BHP_viscous_at_BEP
+
+    # Store in results matrix - water
+    df_test_matrix[condition_id,"H_at_BEP_viscous"]<-n_water_at_BEP
+    df_test_matrix[condition_id,"n_viscous_at_BEP"]<-H_water_at_BEP
+    df_test_matrix[condition_id,"BHP_viscous_at_BEP"]<-BHP_water_at_BEP
+  }
 }
 
 ################################################################################################################
