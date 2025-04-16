@@ -65,8 +65,6 @@ for (condition_id in rownames(df_test_matrix))
 # using BEP_Q_fluid and BEP_Q_water
 # The loop above can be repeated.
 ##################################################################################################################
-
-
 # for each configurartion of the test matrix 
 for (condition_id in rownames(df_test_matrix))
 {
@@ -108,21 +106,25 @@ for (condition_id in rownames(df_test_matrix))
     n_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"n"]
     H_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"H"]
     BHP_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"BHP"]
+    Q_viscous_at_BEP<-condition_viscous[which(condition_viscous$Q == BEP_Q_fluid),"Q"]
 
     # Take the metrics in water
     n_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"n"]
     H_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"H"]
     BHP_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"BHP"]
+    Q_water_at_BEP<-condition_water[which(condition_water$Q == BEP_Q_water),"Q"]
 
     # Store in results matrix - fluids
     df_test_matrix[condition_id,"H_at_BEP_viscous"]<-n_viscous_at_BEP
     df_test_matrix[condition_id,"n_at_BEP_viscous"]<-H_viscous_at_BEP
     df_test_matrix[condition_id,"BHP_at_BEP_viscous"]<-BHP_viscous_at_BEP
+    df_test_matrix[condition_id,"Q_at_BEP_viscous"]<-Q_viscous_at_BEP
 
     # Store in results matrix - water
     df_test_matrix[condition_id,"H_at_BEP_water"]<-n_water_at_BEP
     df_test_matrix[condition_id,"n_at_BEP_water"]<-H_water_at_BEP
     df_test_matrix[condition_id,"BHP_at_BEP_water"]<-BHP_water_at_BEP
+    df_test_matrix[condition_id,"Q_at_BEP_water"]<-Q_water_at_BEP
   }
 }
 
@@ -131,7 +133,7 @@ for (condition_id in rownames(df_test_matrix))
 # In case of water, there is only one viscous categorie
 ################################################################################################################
 # Add collumns for each correction factor
-df_test_matrix$C_Q<-df_test_matrix$BEP_Q_fluid/df_test_matrix$BEP_Q_water
+df_test_matrix$C_Q<-df_test_matrix$Q_at_BEP_viscous/df_test_matrix$Q_at_BEP_water
 df_test_matrix$C_n<-df_test_matrix$n_at_BEP_viscous/df_test_matrix$n_at_BEP_water
 df_test_matrix$C_H<-df_test_matrix$H_at_BEP_viscous/df_test_matrix$H_at_BEP_water
 ################################################################################################################
@@ -143,6 +145,6 @@ ESP_P47_melt_df_test_matrix_fluid<-melt_df_test_matrix_fluid[which(melt_df_test_
 # Melt tabele
 # Plot_raw_vibration_data.png                                                                                                            
 png(filename=paste(project_folder,"ESP_P47_melt_df_test_matrix_fluid.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
-  ggplot(data=ESP_P47_melt_df_test_matrix_fluid, aes(x=viscosity, y=value, group=RPM,colour=RPM)) + geom_line()+ facet_grid(vars(variable), scales = "free")+ theme_bw()   + ggtitle ("P47 Glycerin") + geom_point()
+  ggplot(data=ESP_P47_melt_df_test_matrix_fluid, aes(x=viscosity, y=value, group=RPM,colour=RPM)) + geom_line()+ facet_grid(vars(variable), scales = "free")+ theme_bw()   + ggtitle ("P47") + geom_point()
 dev.off()
 ################################################################################################################
