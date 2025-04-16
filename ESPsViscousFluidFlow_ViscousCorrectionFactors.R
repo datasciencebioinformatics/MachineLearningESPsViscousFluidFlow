@@ -84,13 +84,13 @@ for (condition_id in rownames(df_test_matrix_fluid))
 }
 ################################################################################################################
 # Melt data.frame for the plot
-melt_df_test_matrix_fluid<-melt(df_test_matrix_fluid[,c("equip","RPM","fluid","viscosity","Q_at_BEP","N_at_BEP","H_at_BEP")],id.vars=c("equip","RPM","fluid","viscosity"))
+melt_df_test_matrix_fluid<-melt(df_test_matrix_fluid[,c("equip","RPM","fluid","viscosity","C_Q","C_n","C_H")],id.vars=c("equip","RPM","fluid","viscosity"))
 
-ESP_P47_melt_df_test_matrix_fluid<-melt_df_test_matrix_fluid[which(melt_df_test_matrix_fluid$equip=="P47" & melt_df_test_matrix_fluid$fluid=="Glycerin"),]
+ESP_P47_melt_df_test_matrix_fluid<-melt_df_test_matrix_fluid[which(melt_df_test_matrix_fluid$equip=="P47"),]
 ################################################################################################################
 # Melt tabele
 # Plot_raw_vibration_data.png                                                                                                            
 png(filename=paste(project_folder,"ESP_P47_melt_df_test_matrix_fluid.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
-  ggplot(data=ESP_P47_melt_df_test_matrix_fluid, aes(x=viscosity, y=value, group=RPM)) + geom_line()+ facet_wrap(vars(variable,RPM), scales = "free")+ theme_bw()   + ggtitle ("P47 Glycerin") + geom_point()
+  ggplot(data=ESP_P47_melt_df_test_matrix_fluid, aes(x=viscosity, y=value, group=RPM,colour=RPM)) + geom_line()+ facet_grid(vars(variable), scales = "free")+ theme_bw()   + ggtitle ("P47 Glycerin") + geom_point()
 dev.off()
 ################################################################################################################
