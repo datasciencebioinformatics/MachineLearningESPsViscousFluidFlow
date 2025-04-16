@@ -65,17 +65,7 @@ for (condition_id in rownames(df_test_matrix))
 # using BEP_Q_fluid and BEP_Q_water
 # The loop above can be repeated.
 ##################################################################################################################
-# add values of H, Q, n at BEP
-# for viscous..
-df_test_matrix$H_at_BEP_viscous           <--1
-df_test_matrix$Q_at_BEP_viscous           <--1
-df_test_matrix$N_at_BEP_viscous           <--1
-df_test_matrix$BHP_at_BEP_viscous         <--1
-# ...and for water
-df_test_matrix$H_at_BEP_water           <--1
-df_test_matrix$Q_at_BEP_water           <--1
-df_test_matrix$N_at_BEP_water           <--1
-df_test_matrix$BHP_at_BEP_water         <--1
+
 
 # for each configurartion of the test matrix 
 for (condition_id in rownames(df_test_matrix))
@@ -126,13 +116,13 @@ for (condition_id in rownames(df_test_matrix))
 
     # Store in results matrix - fluids
     df_test_matrix[condition_id,"H_at_BEP_viscous"]<-n_viscous_at_BEP
-    df_test_matrix[condition_id,"n_viscous_at_BEP"]<-H_viscous_at_BEP
-    df_test_matrix[condition_id,"BHP_viscous_at_BEP"]<-BHP_viscous_at_BEP
+    df_test_matrix[condition_id,"n_at_BEP_viscous"]<-H_viscous_at_BEP
+    df_test_matrix[condition_id,"BHP_at_BEP_viscous"]<-BHP_viscous_at_BEP
 
     # Store in results matrix - water
-    df_test_matrix[condition_id,"H_at_BEP_viscous"]<-n_water_at_BEP
-    df_test_matrix[condition_id,"n_viscous_at_BEP"]<-H_water_at_BEP
-    df_test_matrix[condition_id,"BHP_viscous_at_BEP"]<-BHP_water_at_BEP
+    df_test_matrix[condition_id,"H_at_BEP_water"]<-n_water_at_BEP
+    df_test_matrix[condition_id,"n_at_BEP_water"]<-H_water_at_BEP
+    df_test_matrix[condition_id,"BHP_at_BEP_water"]<-BHP_water_at_BEP
   }
 }
 
@@ -140,45 +130,13 @@ for (condition_id in rownames(df_test_matrix))
 # For each viscous category, split the data in the three possible fluids
 # In case of water, there is only one viscous categorie
 ################################################################################################################
-# For water viscosity is alway zero
-# Homologous conditions will be set among equipment and RPM
-homologous_conditions<-unique(df_test_matrix_water[,c("RPM","equip")])
-
-# Take only the water samples, glycerin and diluted glycering.
-# each in one vector
-df_test_matrix_water          <-df_test_matrix[df_test_matrix$fluid=="water",]
-df_test_matrix_fluid          <-df_test_matrix[df_test_matrix$fluid!="water",]
-
 # Add collumns for each correction factor
-df_test_matrix_fluid$C_Q<-0 # Correction factor for flow rate Q
-df_test_matrix_fluid$C_n<-0 # Correction factor for flow rate n
-df_test_matrix_fluid$C_H<-0 # Correction factor for flow rate H 
-
-# for each configurartion of the test matris
-for (condition_id in rownames(df_test_matrix_fluid))
-{
-  # Take the value of the RPM in water 
-  RPM     <-df_test_matrix_fluid[condition_id,"RPM"]
-
-  # Take the value of equipmement in water
-  equip   <-df_test_matrix_fluid[condition_id,"equip"]
-
-  # Take the value of viscosity in 
-  viscosity<-df_test_matrix_fluid[condition_id,"viscosity"]
-
-  # Take the BEP_water_Q for this equipment and this rpm
-  Q_at_BEP_water<-df_test_matrix_water[df_test_matrix_water$RPM== RPM & df_test_matrix_water$equip == equip,"Q_at_BEP"]
-  N_at_BEP_water<-df_test_matrix_water[df_test_matrix_water$RPM== RPM & df_test_matrix_water$equip == equip,"N_at_BEP"]
-  H_at_BEP_water<-df_test_matrix_water[df_test_matrix_water$RPM== RPM & df_test_matrix_water$equip == equip,"H_at_BEP"]
-
-  # Take the value of equipmement in water
-  df_test_matrix_fluid[condition_id,"C_Q"]<-(df_test_matrix_fluid[condition_id,"Q_at_BEP"]/Q_at_BEP_water)
-  df_test_matrix_fluid[condition_id,"C_n"]<-(df_test_matrix_fluid[condition_id,"N_at_BEP"]/N_at_BEP_water)
-  df_test_matrix_fluid[condition_id,"C_H"]<-(df_test_matrix_fluid[condition_id,"H_at_BEP"]/H_at_BEP_water)
-}
+df_test_matrix$C_Q<-df_test_matrix$BEP_Q_fluid/df_test_matrix$BEP_Q_water
+df_test_matrix$C_n<-df_test_matrix$n_at_BEP_viscous/df_test_matrix$n_at_BEP_water
+df_test_matrix$C_H<-df_test_matrix$H_at_BEP_viscous/df_test_matrix$H_at_BEP_water
 ################################################################################################################
 # Melt data.frame for the plot
-melt_df_test_matrix_fluid<-melt(df_test_matrix_fluid[,c("equip","RPM","fluid","viscosity","C_Q","C_n","C_H")],id.vars=c("equip","RPM","fluid","viscosity"))
+melt_df_test_matrix_fluid<-melt(df_test_matrix[,c("equip","RPM","fluid","viscosity","C_Q","C_n","C_H")],id.vars=c("equip","RPM","fluid","viscosity"))
 
 ESP_P47_melt_df_test_matrix_fluid<-melt_df_test_matrix_fluid[which(melt_df_test_matrix_fluid$equip=="P47"),]
 ################################################################################################################
