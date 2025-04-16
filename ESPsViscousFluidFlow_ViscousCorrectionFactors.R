@@ -53,21 +53,44 @@ homologous_conditions<-unique(df_test_matrix_water[,c("RPM","equip")])
 # Take only the water samples, glycerin and diluted glycering.
 # each in one vector
 df_test_matrix_water          <-df_test_matrix[df_test_matrix$fluid=="water",]
-df_test_matrix_DilutedGlycerin<-df_test_matrix[df_test_matrix$fluid=="Diluted Glycerin",]
-df_test_matrix_Glycerin       <-df_test_matrix[df_test_matrix$fluid=="Glycerin",]
+df_test_matrix_fluid          <-df_test_matrix[df_test_matrix$fluid!="water",]
 
 # Add collumns for each correction factor
-df_test_matrix$C_Q<-0 # Correction factor for flow rate Q
-df_test_matrix$C_n<-0 # Correction factor for flow rate n
-df_test_matrix$C_H<-0 # Correction factor for flow rate H 
+df_test_matrix_fluid$C_Q<-0 # Correction factor for flow rate Q
+df_test_matrix_fluid$C_n<-0 # Correction factor for flow rate n
+df_test_matrix_fluid$C_H<-0 # Correction factor for flow rate H 
 
-######################################################################################3
-# The BEP flow rate in water is analogous to the BEP flow rate in viscous fluids.
-# therefore, the BEP_water_Q is analogous BEP_water_Q.
-C_Q<-BEP_water_Q/BEP_viscous_Q
+# for each configurartion of the test matris
+for (condition_id in rownames(df_test_matrix_fluid))
+{
+  # Take the value of the RPM in water 
+  RPM     <-df_test_matrix_fluid[condition_id,"RPM"]
 
-# Correction 
-C_n=ESP_water_BEP_Q[,"n"]/ESP_fluid_BEP_Q[,"n"]
+  # Take the value of equipmement in water
+  equip   <-df_test_matrix_fluid[condition_id,"equip"]
 
-# Correction 
-C_H=ESP_water_BEP_Q[,"H"]/ESP_fluid_BEP_Q[,"H"]
+  # Take the value of viscosity in 
+  viscosity<-df_test_matrix_fluid[condition_id,"viscosity"]
+
+  # Take the BEP_water_Q for this equipment and this rpm
+  Q_at_BEP_water<-df_test_matrix_water[df_test_matrix_water$RPM== RPM & df_test_matrix_water$equip == equip,"Q_at_BEP"]
+  N_at_BEP_water<-df_test_matrix_water[df_test_matrix_water$RPM== RPM & df_test_matrix_water$equip == equip,"N_at_BEP"]
+  H_at_BEP_water<-df_test_matrix_water[df_test_matrix_water$RPM== RPM & df_test_matrix_water$equip == equip,"H_at_BEP"]
+
+  # Take the value of equipmement in water
+  df_test_matrix_fluid[condition_id,"C_Q"]<-(df_test_matrix_fluid[condition_id,"Q_at_BEP"]/Q_at_BEP_water)
+  df_test_matrix_fluid[condition_id,"C_n"]<-(df_test_matrix_fluid[condition_id,"N_at_BEP"]/N_at_BEP_water)
+  df_test_matrix_fluid[condition_id,"C_H"]<-(df_test_matrix_fluid[condition_id,"H_at_BEP"]/H_at_BEP_water)
+}
+################################################################################################################
+# Melt data.frame for the plot
+melt_df_test_matrix_fluid<-melt(df_test_matrix_fluid[,c("equip","RPM","fluid","viscosity","Q_at_BEP","N_at_BEP","H_at_BEP")],id.vars=c("equip","RPM","fluid","viscosity"))
+
+ESP_P47_melt_df_test_matrix_fluid<-melt_df_test_matrix_fluid[which(melt_df_test_matrix_fluid$equip=="P47" & melt_df_test_matrix_fluid$fluid=="Glycerin"),]
+################################################################################################################
+# Melt tabele
+# Plot_raw_vibration_data.png                                                                                                            
+png(filename=paste(project_folder,"ESP_P47_melt_df_test_matrix_fluid.png",sep=""), width = 30, height = 30, res=600, units = "cm")  
+  ggplot(data=ESP_P47_melt_df_test_matrix_fluid, aes(x=viscosity, y=value, group=RPM)) + geom_line()+ facet_wrap(vars(variable,RPM), scales = "free")+ theme_bw()   + ggtitle ("P47 Glycerin") + geom_point()
+dev.off()
+################################################################################################################
