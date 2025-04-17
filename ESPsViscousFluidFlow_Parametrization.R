@@ -78,8 +78,9 @@ for (measure in rownames(merge_water_viscous))
   # g    : The acceleration due to gravity (9.81m/s2) 
   # H    : The differential head in meters (m)
   
-  # useful power Ph
-  merge_water_viscous[measure,"P_h"]<- (p*g*merge_water_viscous[measure,"H"]*merge_water_viscous[measure,"Q"])
+  # useful power Ph 
+  # convert kilowatts to watts
+  merge_water_viscous[measure,"P_h"]<- (p*g*merge_water_viscous[measure,"H"]*merge_water_viscous[measure,"Q"])/1000
 
   # The pump efficiency (n) is defined as:
   # n = efficiency, dimensionless [%]
