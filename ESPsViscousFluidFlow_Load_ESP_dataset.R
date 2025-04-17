@@ -125,8 +125,8 @@ mo = water("visck", T = convert(as.numeric(All_water$Inlet.Temperature.T1), "K")
 
 # Add collumns for viscosities in water. 
 # Star values as -1
-All_water$Inlet.Viscosity.mi  <- mi
-All_water$Outlet.Viscosity.mo <- mo
+All_water$Inlet.Viscosity.mi  <- mi$visc
+All_water$Outlet.Viscosity.mo <- mo$visck
 
 # Inlet.Density.ρi
 All_water$Inlet.Density.ρi<-p$rho
